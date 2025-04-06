@@ -1,485 +1,896 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="Zidni Ridwan Nulmuarif (zidniryi)" />
-    <meta name="author" content="zidniryi" />
 
-    <title>Resume - Zidni Ridwan Nulmuarif (Zidniryi) </title>
-    <link rel="icon" href="./img/z.ico" type="image/x-icon" />
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio website of Zidni Ridwan Nulmuarif A summary of professional experience, 
+      skills, projects details and contact information." />
+  <title>Zidni Ridwan Nulmuarif - Portfolio</title>
 
-    <!-- Custom fonts for this template -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i"
-      rel="stylesheet"
-    />
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <!--==================== OPEN GRAPH META TAGS ===================== -->
+  <meta property="og:title" content="Zidni Ridwan Nulmuarif - Portfolio" />
+  <meta property="og:image" content="/assets/img/PwaImages/ios/512.png" />
+  <meta property="og:description" content="Portfolio website of Zidni Ridwan Nulmuarif A summary of professional experience, 
+      skills, projects details and contact information." />
 
-    <!-- Custom styles for this template -->
-    <link href="css/resume.min.css" rel="stylesheet" />
-    <meta name="google-site-verification" content="yBEcxM5R76C_42r_E4kHyf6ZBgBzMg6qRlj1hf9unoA" />
-  </head>
+  <!--==================== TWITTER META TAGS ===================== -->
+  <meta name="twitter:title" content="Zidni Ridwan Nulmuarif - Portfolio" />
+  <meta name="twitter:description" content="Portfolio website of Zidni Ridwan Nulmuarif A summary of professional experience, 
+      skills, projects details and contact information." />
+  <meta name="twitter:image" content="/assets/img/PwaImages/ios/512.png" />
 
-  <body id="page-top">
-    <nav
-      class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"
-      id="sideNav"
-    >
-      <a href="https://dev.to/zidniryi">
-       <img src="https://d2fltix0v2e0sb.cloudfront.net/dev-badge.svg" alt="zidniryi's DEV Profile" height="30" width="30">
-      </a>
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Zidni Ridwan Nulmuarif</span>
-        <span class="d-none d-lg-block">
-          <img
-            class="img-fluid img-profile rounded-circle mx-auto mb-2"
-            src="img/my.jpg"
-            alt=""
-          />
-        </span>
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+  <!--==================== UNICONS ====================-->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+  <!-- ====================PWA================== -->
+  <link rel="manifest" href="manifest.json" />
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/32.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/72.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/100.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/144.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/152.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/192.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/256.png" />
+  <link rel="apple-touch-icon" href="/assets/img/PwaImages/ios/512.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#6E57E0" />
+  <meta name="theme-color" content="#6E57E0" />
+
+  <!-- ============FAVICONS============== -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets//img/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png" />
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico" />
+
+  <!--==================== SWIPER CSS ====================-->
+  <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
+
+  <!--==================== CSS ====================-->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <!-- ===================== LOADER ==================== -->
+  <div id="loading">
+    <div class="loader"><span>
+        << /span><span>/></span></div>
+  </div>
+
+  <!--==================== HEADER ====================-->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo noSelect">Zidni Ridwan Nulmuarif</a>
+
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list grid">
+          <li class="nav__item">
+            <a href="#home" class="nav__link noSelect active-link">
+              <i class="uil uil-estate nav__icon"></i> Home
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#experience"
-              >Experience</a
-            >
+
+          <li class="nav__item">
+            <a href="#about" class="nav__link noSelect">
+              <i class="uil uil-user nav__icon"></i> About
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#education"
-              >See My CV</a
-            >
+
+          <li class="nav__item">
+            <a href="#skills" class="nav__link noSelect">
+              <i class="uil uil-file-alt nav__icon"></i> Skills
+            </a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="https://www.konsepkoding.com/" target="_blank"
-              >Blog</a
-            >
+
+          <li class="nav__item">
+            <a href="#services" class="nav__link noSelect">
+              <i class="uil uil-briefcase-alt nav__icon"></i> Services
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+
+          <li class="nav__item">
+            <a href="#portfolio" class="nav__link noSelect">
+              <i class="uil uil-scenery nav__icon"></i> Portfolio
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#interests"
-              >Interests</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
+
+          <li class="nav__item">
+            <a href="#contact" class="nav__link noSelect">
+              <i class="uil uil-message nav__icon"></i> Contact Me
+            </a>
           </li>
         </ul>
+        <i class="uil uil-times nav__close noSelect" id="nav-close"></i>
+      </div>
+
+      <div class="nav__btns">
+        <!-- theme change button -->
+        <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+        <div class="nav__toggle noSelect" id="nav-toggle">
+          <i class="uil uil-apps"></i>
+        </div>
       </div>
     </nav>
+  </header>
 
-    <div class="container-fluid p-0">
-      <section
-        class="resume-section p-3 p-lg-5 d-flex align-items-center"
-        id="about"
-      >
-        <div class="w-100">
-          <h1 class="mb-0">
-            Zidni Ridwan
-            <span class="text-primary">Nulmuarif</span>
-          </h1>
-          <p class="lead mb-5">
-            I am experienced in increasing work effectiveness providing a strong
-            synopsis for high-level overview. The approach uses analysis and
-            translates it into a product with programming languages ​​and data
-            structures to provide solutions.
-          </p>
-          <div class="social-icons">
-            <a
-              href="https://www.linkedin.com/in/zidni-ridwan-nulmuarif-363923128"
-            >
-              <i class="fab fa-linkedin-in"></i>
+  <!--==================== MAIN ====================-->
+
+  <main class="main">
+    <!--==================== HOME ====================-->
+    <section class="home section" id="home">
+      <div class="home__container container grid">
+        <div class="home__content grid">
+          <div class="home__social">
+            <a href="https://www.linkedin.com/in/zidni-ridwan-nulmuarif/" target="_blank" class="home__social-icon">
+              <i class="uil uil-linkedin-alt"></i>
             </a>
-            <a href="https://github.com/zidniryi">
-              <i class="fab fa-github"></i>
+            <a href="https://github.com/zidniryi" target="_blank" class="home__social-icon">
+              <i class="uil uil-github-alt"></i>
             </a>
-            <a href="https://www.instagram.com/zidniryi/">
-              <i class="fab fa-instagram"></i>
+            <a href="https://konsepkoding.com/" target="_blank" class="home__social-icon">
+              <i class="uil uil-globe"></i>
             </a>
-            <a href="https://www.facebook.com/zidniridwan.nulmuarif">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-             <a href="https://play.google.com/store/apps/developer?id=Konsep+Koding">
-             <i class="fas fa-play"></i>
+            <a href="https://x.com/zidniryi" target="_blank" class="home__social-icon">
+              <i class="uil uil-twitter-alt"></i>
             </a>
           </div>
-        </div>
-      </section>
 
-      <hr class="m-0" />
-
-      <section
-        class="resume-section p-3 p-lg-5 d-flex justify-content-center"
-        id="experience"
-      >
-        <div class="w-100">
-          <h2 class="mb-5">Experience</h2>
-
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Freleancer Web</h3>
-              <div class="subheading mb-3">E-comerce</div>
-              <p>
-                Create and Design web-based application systems for the online
-                market. Using PHP, Javascript, Mysql and HTML5 CSS3.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">March 2016 - Aug 2017</span>
-            </div>
+          <div class="home__img">
+            <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <mask id="mask0" mask-type="alpha">
+                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
+                                130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
+                                97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
+                                0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
+              </mask>
+              <g mask="url(#mask0)">
+                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
+                                165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
+                                129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
+                                -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
+                <image class="home__blob-img" x="-20" xlink:href="assets/img/hacker-profile.png"></image>
+              </g>
+            </svg>
           </div>
 
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Internship</h3>
-              <div class="subheading mb-3">ICT Network</div>
-              <p>
-                Create and develop web and mobile based applications using Java
-                for mobile and PHP for the Web. Graphic design for product use
-                using phostohop, corel draw.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">Nov 2017 - Feb 2018</span>
-            </div>
-          </div>
-
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Content Writer</h3>
-              <div class="subheading mb-3">CV Prima</div>
-              <p>
-                Create article content for product requirements by the rules of
-                Serach Enggine Optimization using creative and attractive
-                techniques to attract organic customers from the internet.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">December 2017 - April 2018</span>
-            </div>
-          </div>
-
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Teacher & Trainer Mobile App</h3>
-              <div class="subheading mb-3">
-                IDN (PT Integrasi Data Nusantara)
-              </div>
-              <p>
-                Create mobile applications for iOS using Swift 4.2, create
-                applications using kotlin and java and teach algorithms,
-                database design, UI UX with Figma and Sketch.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">July 2018 - Feb 2019</span>
-            </div>
-          </div>
-
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Mobile Application Engginer</h3>
-              <div class="subheading mb-3">
-                HaloJasa (PT Halo Komunikasi Sejahtera)
-              </div>
-              <p>
-                Create applications based on Business processes and MVP using
-                React Native. Code implementation based on UI UX consume API,
-                Google Maps Integration, Socket IO, Redux, Resonsive Mobile
-                Design and Consume API to produce optimal applications.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">Feb 2019 - June 2021</span>
-            </div>
-          </div>
-          
-             <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Mobile Application Engginer</h3>
-              <div class="subheading mb-3">
-                Jenius (PT. Bank BTPN Tbk)
-              </div>
-              <p>
-                Create applications based on Business processes with Graphql and React Native
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">June 2021 - May 2022</span>
-            </div>
-          </div>
-          
-             <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Frontend Developer</h3>
-              <div class="subheading mb-3">
-                Prudential (PT. Prudential Life Assurance)
-              </div>
-              <p>
-                Working with Angular technology creating internal project.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">Nov 2022 - Present</span>
-            </div>
-          </div>
-          
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Frontend Developer</h3>
-              <div class="subheading mb-3">
-                Bluebird TBK
-              </div>
-              <p>
-               As a frontend, I developed UI KIT Library with NextJS and Storybook for Web, then developed React dashboard for Bus tracking and developed Angular Thingsboard for IOT dashboard.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">Nov 2022 -  June 2023 </span>
-            </div>
-          </div>
-
-       <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <h3 class="mb-0">Mobile Application Engginer</h3>
-              <div class="subheading mb-3">
-                Virtual Spirit (Virtual Spirit Technology Sdn Bhd)
-              </div>
-              <p>
-          Specialize in turning intricate concepts into captivating user experiences. Wok in in both iOS and Android ecosystems.
-              </p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">June 2023 - Present</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <hr class="m-0" />
-
-      <section
-        class="resume-section p-3 p-lg-5 d-flex align-items-center"
-        id="education"
-      >
-        <div class="w-100">
-          <h2 class="mb-5">Download My CV</h2>
-
-          <div
-            class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5"
-          >
-            <div class="resume-content">
-              <a
-                href="https://drive.google.com/open?id=1vhgouOt7fUdDKmUHDPgO__-xE3pjZrEh"
-              >
-                <h3 class="mb-0">See My CV</h3></a
-              >
-            </div>
+          <div class="home__data">
+            <h1 class="home__title">Hi, I am zidniryi</h1>
+            <h3 class="home__subtitle">Software Developer</h3>
+            <p class="home__description">
+              I have a passion for developing efficient, scalable, and user-friendly software that delivers a seamless
+              and enjoyable experience.
+            </p>
+            <a href="#contact" class="button button--flex">
+              Contact Me<i class="uil uil-message button__icon"></i>
+            </a>
           </div>
         </div>
-      </section>
-
-      <hr class="m-0" />
-
-      <section
-        class="resume-section p-3 p-lg-5 d-flex align-items-center"
-        id="skills"
-      >
-        <div class="w-100">
-          <h2 class="mb-5">Skills</h2>
-
-          <div class="subheading mb-3">Programming Languages &amp; Tools</div>
-          <ul class="list-inline dev-icons">
-            <li class="list-inline-item">
-              <i class="fab fa-html5"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-css3-alt"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-js-square"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-react"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-node-js"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-sass"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-android"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-wordpress"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-apple"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-npm"></i>
-            </li>
-            <li class="list-inline-item">
-              <i class="fab fa-git"></i>
-            </li>
-          </ul>
-
-          <div class="subheading mb-3">Area of experience</div>
-          <ul class="fa-ul mb-0">
-            <li>
-              <i class="fa-li fa fa-check"></i>
-              Mobile Development, Responsive Design
-            </li>
-            <li>
-              <i class="fa-li fa fa-check"></i>
-              Testing &amp; Debugging
-            </li>
-            <li>
-              <i class="fa-li fa fa-check"></i>
-              Cross Functional Teams
-            </li>
-            <li>
-              <i class="fa-li fa fa-check"></i>
-              Algorithms &amp; Data Structure
-            </li>
-          </ul>
+        <div class="home__scroll">
+          <a href="#about" class="home__scroll-button button--flex">
+            <i class="uil uil-mouse-alt home__scroll-mouse"></i>
+            <span class="home__scroll-name">Scroll Down</span>
+            <i class="uil uil-arrow-down home__scroll-arrow"></i>
+          </a>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <hr class="m-0" />
+  <!--==================== ABOUT ====================-->
 
-      <section
-        class="resume-section p-3 p-lg-5 d-flex align-items-center"
-        id="interests"
-      >
-        <div class="w-100">
-          <h2 class="mb-5">Interests</h2>
-          <p>
-            Part of me being a developer, I like to write, like reading, farming
-            and graphic design.
-          </p>
-          <p class="mb-0">
-            I also like watching comedy and sc-fi movies like Interstellar and
-            Inception. Running sports because before I had participated in
-            athletics and marathon competitions. A healthy body is very
-            important for self-productivity.
-          </p>
+  <section class="about section" id="about">
+    <h2 class="section__title">About Me</h2>
+    <span class="section__subtitle">My Introduction</span>
+
+    <div class="about__container container grid">
+      <img src="assets/img/my-ryi.jpg" alt="" class="about__image" />
+
+      <div class="about__data">
+        <p class="about__description">
+          I have 6+ years of experience and a deep understanding of various development
+          technologies such as HTML, CSS, JavaScript, TypeScript, Angular, IONIC, MERN, Next.js
+          MEAN, Vue.js, React, Kotlin, React Native, ExpressJS, MySQL, PHP, Python but I am more focus on web and mobile
+          development <br />
+          I am experienced in increasing work effectiveness providing a strong synopsis for high-level overview. The
+          approach uses analysis and translates it into a product with programming languages ​​and data structures to
+          provide solutions. <br />
+          Part of me being a developer, I like to write, like reading, farming and graphic design.
+          I also like watching comedy and sc-fi movies like Interstellar and Inception. Running sports because before I
+          had participated in athletics and marathon competitions. A healthy body is very important for
+          self-productivity.
+        </p>
+        <div class="about__info">
+          <div>
+            <span class="about__info-title">6+</span>
+            <span class="about__info-name">Years <br />
+              experience</span>
+          </div>
+
+          <div>
+            <span class="about__info-title">20+</span>
+            <span class="about__info-name">Projects <br />
+              completed</span>
+          </div>
+
+          <div>
+            <span class="about__info-title">07+</span>
+            <span class="about__info-name">Companies <br />
+              worked</span>
+          </div>
         </div>
-      </section>
 
-      <hr class="m-0" />
-
-      <section
-        class="resume-section p-3 p-lg-5 d-flex align-items-center"
-        id="awards"
-      >
-        <div class="w-100">
-          <h2 class="mb-5">Awards &amp; Certifications</h2>
-          <ul class="fa-ul mb-0">
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              Advanced IOS certification from the Indonesia Mobile App Academy.
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              Basic Linux certificate from the barometer.
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              Android certificate Dicoding.
-            </li>
-              <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              Participate and Top 3 Indonesia Android Kejar
-            </li>
-               <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              iOS 5 certificate Dicoding.
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              Internet Of Things Simple Robotics Certificates
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              1<sup>st</sup> National Copyright Contest - Bangka Government Tech
-              Competition 2016
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              2<sup>st</sup> Place - Dian Nuswantara University Semarang - App
-              Competition Dinacom 2017
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              2<sup>nd</sup> Place - University of Amikom Yogyakarta - ICT
-              Competition 2017
-            </li>
-            <li>
-              <i class="fa-li fa fa-trophy text-warning"></i>
-              Top<sup>50</sup> Place - Commonlife national writing competition
-              2018
-            </li>
-          </ul>
+        <div class="about__buttons">
+          <a download="" href="assets/pdf/cv-zidni.pdf" class="button button--flex">
+            Download Resume<i class="uil uil-download-alt button__icon"></i></a>
         </div>
-      </section>
+      </div>
     </div>
-    
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </section>
 
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!--==================== SKILLS ====================-->
 
-    <!-- Custom scripts for this template -->
-    <script src="js/resume.min.js"></script>
-    
-  </body>
+  <section class="skills section" id="skills">
+    <h2 class="section__title">Skills</h2>
+    <span class="section__subtitle">My tech stack</span>
+    <div class="skills__container container grid">
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/angular.svg" alt="angular" />
+        <div class="skills__container-name">Angular</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/react.svg" alt="react" />
+        <div class="skills__container-name">React</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/vue.svg" alt="vue" />
+        <div class="skills__container-name">Vue</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/typescript.svg" alt="typescript" />
+        <div class="skills__container-name">TypeScript</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/javascript.svg" alt="javascript" />
+        <div class="skills__container-name">JavaScript</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/html.svg" alt="html" />
+        <div class="skills__container-name">HTML</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/css.svg" alt="css" />
+        <div class="skills__container-name">CSS</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/sass.svg" alt="sass" />
+        <div class="skills__container-name">SASS</div>
+      </div>
+
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/firebase.svg" alt="firebase" />
+        <div class="skills__container-name">Firebase</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/express.svg" alt="Express" />
+        <div class="skills__container-name">ExpressJS</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/php.svg" alt="PHP" />
+        <div class="skills__container-name">PHP</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/nodejs.svg" alt="NodeJS" />
+        <div class="skills__container-name">NodeJS</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/aws.svg" alt="Aws" />
+        <div class="skills__container-name">AWS</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/react-native.svg" alt="React Native" />
+        <div class="skills__container-name">React Native</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/swift.svg" alt="Swift" />
+        <div class="skills__container-name">Swift</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/kotlin.svg" alt="Kotlin" />
+        <div class="skills__container-name">Kotlin</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/ionic.svg" alt="Ionic" />
+        <div class="skills__container-name">Ionic</div>
+      </div>
+      <div class="skills__container-box">
+        <img class="skills__container-img" src="/assets/img/skills/database.svg" alt="Database" />
+        <div class="skills__container-name">No SQL/ SQL</div>
+      </div>
+    </div>
+
+    <!-- <div class="skills__container-box">
+                <img class="skills__container-img" src="/assets/img/skills/figma.svg" alt="figma">
+                <div class="skills__container-name">Figma</div>
+            </div> -->
+    </div>
+  </section>
+
+  <!--==================== QUALIFICATOIN ====================-->
+
+  <section class="qualification section">
+    <h2 class="section__title">Qualification</h2>
+    <span class="section__subtitle">My personal journey</span>
+
+    <div class="qualification__container container">
+      <div class="qualification__tabs">
+        <div class="qualification__button button--flex qualification__active" data-target="#work">
+          <i class="uil uil-briefcase-alt qualification__icon"></i> Work
+        </div>
+        <div class="qualification__button button--flex" data-target="#education">
+          <i class="uil uil-graduation-cap qualification__icon"></i> Education
+        </div>
+      </div>
+
+      <div class="qualification__sections">
+        <!-- Work Experience -->
+        <div class="qualification__content qualification__active" data-content id="work">
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Freelancer Content Writer</h3>
+              <span class="qualification__subtitle">CV Prima Surya</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2017-2018
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Teacher Trainer Tech</h3>
+              <span class="qualification__subtitle">IDN Boarding School</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2018-2019
+              </div>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Mobile Application Developer Fulltime</h3>
+              <span class="qualification__subtitle">Halojasa Indonesia</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2019-2021
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Online Instructor Freelance</h3>
+              <span class="qualification__subtitle">pintaar.com</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2020-2020
+              </div>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Frontend Developer Freelancer</h3>
+              <span class="qualification__subtitle">PT. Rynest Technology Indomedia</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2020-2020
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Mobile Engineer Freelance</h3>
+              <span class="qualification__subtitle">PT Solushift Teknologi Studio</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2020-2020
+              </div>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Software Engineering Lead Freelance</h3>
+              <span class="qualification__subtitle">PT. Kisun Kreasi Digital (Irevox)</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2020-2022
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Mobile Application Developer Fulltime</h3>
+              <span class="qualification__subtitle">PT Bank BTPN Tbk</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2021-2022
+              </div>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Software Engineer Fulltime</h3>
+              <span class="qualification__subtitle">Prudential Indonesia (PT Prudential Life Assurance)</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2022-2022
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Frontend Engineer</h3>
+              <span class="qualification__subtitle">Blue Bird Group TBK</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2022-2023
+              </div>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Software Engineer Freelance</h3>
+              <span class="qualification__subtitle">Speedwork Indonesia</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2022-2023
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Mobile Application Engineer</h3>
+              <span class="qualification__subtitle">Virtual Spirit Technology Sdn Bhd</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2023-present
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="qualification__content" data-content id="education">
+          <div class="qualification__data">
+            <div>
+              <h3 class="qualification__title">Software Engineer</h3>
+              <span class="qualification__subtitle">SMK Negeri 1 Bawang</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2005-2018
+              </div>
+            </div>
+            <div>
+              <span class="qualification__rounder"></span>
+              <span class="qualification__line"></span>
+            </div>
+          </div>
+
+          <div class="qualification__data">
+            <div></div>
+            <div>
+              <span class="qualification__rounder"></span>
+            </div>
+            <div>
+              <h3 class="qualification__title">Information Technology</h3>
+              <span class="qualification__subtitle">Politeknik Elektronika Negeri Surabayar</span>
+              <div class="qualification__calendar">
+                <i class="uil uil-calendar-alt"></i> 2020-2024
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--==================== SERVICES ====================-->
+
+  <section class="services section" id="services">
+    <h2 class="section__title">Services</h2>
+    <span class="section__subtitle">What I offer</span>
+
+    <div class="services__container container grid">
+      <!--==================== SERVICE 1 ====================-->
+      <div class="services__content">
+        <div>
+          <i class="uil uil-arrow services__icon"></i>
+          <h3 class="services__title">Web<br />Developer</h3>
+        </div>
+
+        <span class="button button--flex button--small button--link services__button">
+          View More
+          <i class="uil uil-arrow-right button__icon"></i>
+        </span>
+
+        <div class="services__modal">
+          <div class="services__modal-content">
+            <h4 class="services__modal-title">Web<br />Developer</h4>
+            <i class="uil uil-times services__modal-close"></i>
+            <ul class="services__modal-services grid">
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>
+                  I develop web applications with end to end solutions for
+                  frontend and backend
+                </p>
+              </li>
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I handle website deployment</p>
+              </li>
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I optimize website performance</p>
+              </li>
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I help in webiste SEO optimization</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!--==================== SERVICE 2 ====================-->
+      <div class="services__content">
+        <div>
+          <i class="uil uil-mobile-android services__icon"></i>
+          <h3 class="services__title">Hybrid App<br />Developer</h3>
+        </div>
+
+        <span class="button button--flex button--small button--link services__button">
+          View More
+          <i class="uil uil-arrow-right button__icon"></i>
+        </span>
+
+        <div class="services__modal">
+          <div class="services__modal-content">
+            <h4 class="services__modal-title">Hybrid App<br />Developer</h4>
+            <i class="uil uil-times services__modal-close"></i>
+            <ul class="services__modal-services grid">
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I develop hybrid mobile apps</p>
+              </li>
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I create apps for mobile and tablets</p>
+              </li>
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I handle cross platform compatibility</p>
+              </li>
+              <li class="services__modal-service">
+                <i class="uil uil-check-circle services__modal-icon"></i>
+                <p>I optimize application performances</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--==================== PORTFOLIO ====================-->
+
+  <section class="portfolio section" id="portfolio">
+    <h2 class="section__title">Portfolio</h2>
+    <span class="section__subtitle">Most recent work</span>
+
+    <div class="portfolio__container container swiper-container">
+      <div class="swiper-wrapper">
+        <!--==================== PORTFOLIO 1====================-->
+        <div class="portfolio__content grid swiper-slide">
+          <img src="/assets/img/portfolio/jenius.png" alt="" class="portfolio__img" />
+          <div class="portfolio__data">
+            <h3 class="portfolio__title">Jenius BTPN</h3>
+            <p class="portfolio__description">
+              Jenius BTPN (Mobile Application) is a mobile application that for banking
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=com.btpn.dc&hl=id" target="_blank"
+              class="button button--flex button--small portfolio__button">
+              Demo
+              <i class="uil uil-arrow-right button__icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!--==================== PORTFOLIO 2====================-->
+        <div class="portfolio__content grid swiper-slide">
+          <img src="/assets/img/portfolio/halojasa-vendor.png" alt="" class="portfolio__img" />
+          <div class="portfolio__data">
+            <h3 class="portfolio__title">Halo Jasa Vendor</h3>
+            <p class="portfolio__description">
+              HaloJasa Customer (Mobile Application) is a mobile application that for service mitra on demand
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=com.halojasa.vendorapp&hl=id" target="_blank"
+              class="button button--flex button--small portfolio__button">
+              Demo
+              <i class="uil uil-arrow-right button__icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!--==================== PORTFOLIO 3====================-->
+        <div class="portfolio__content grid swiper-slide">
+          <img src="/assets/img/portfolio/halojasa-customer.png" alt="" class="portfolio__img" />
+          <div class="portfolio__data">
+            <h3 class="portfolio__title">HaloJasa Customer</h3>
+            <p class="portfolio__description">
+              HaloJasa Customer (Mobile Application) is a mobile application that for service customers on demand
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=halo.jasa.startup&hl=id" target="_blank"
+              class="button button--flex button--small portfolio__button">
+              Demo
+              <i class="uil uil-arrow-right button__icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!--==================== PORTFOLIO 4====================-->
+        <div class="portfolio__content grid swiper-slide">
+          <img src="/assets/img/portfolio/ottipus.png" alt="" class="portfolio__img" />
+          <div class="portfolio__data">
+            <h3 class="portfolio__title">OTTIPUS</h3>
+            <p class="portfolio__description">
+              Ottipus (Mobile Application) mobile application that for education purposes
+            </p>
+            <a href="https://play.google.com/store/apps/details?id=com.ottigo.ottipus&hl=id" target="_blank"
+              class="button button--flex button--small portfolio__button">
+              Demo
+              <i class="uil uil-arrow-right button__icon"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add arrows -->
+      <div class="swiper-button-next">
+        <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
+      </div>
+      <div class="swiper-button-prev">
+        <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
+      </div>
+
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!--==================== PROJECT IN MIND ====================-->
+
+  <section class="project section">
+    <div class="project__bg">
+      <div class="project__container container grid">
+        <div class="project__data">
+          <h2 class="project__title">You have a new project ?</h2>
+          <p class="project__description">
+            I would love to chat with you about your project and see how we
+            can work together to create something truly amazing. Let's
+            connect.
+          </p>
+          <a href="#contact" class="button button--flex button--white">
+            Contact Me
+            <i class="uil uil-message project__icon button__icon"></i>
+          </a>
+        </div>
+
+        <img src="/assets/img/travel-pic3.png" alt="" class="project__img" />
+      </div>
+    </div>
+  </section>
+
+  <!--==================== CONTACT ME ====================-->
+
+  <section class="contact section" id="contact">
+    <h2 class="section__title">Contact Me</h2>
+    <span class="section__subtitle">Get in touch</span>
+
+    <div class="contact__container container grid">
+      <div>
+        <div class="contact__information">
+          <i class="uil uil-globe contact__icon"></i>
+
+          <div>
+            <h3 class="contact__title">Blog</h3>
+            <span class="contact__subtitle">KonsepKoding.com</span>
+          </div>
+        </div>
+
+        <div class="contact__information">
+          <i class="uil uil-envelope contact__icon"></i>
+
+          <div>
+            <h3 class="contact__title">Email</h3>
+            <span class="contact__subtitle">zidniryi123@gmail.com</span>
+          </div>
+        </div>
+
+        <div class="contact__information">
+          <i class="uil uil-map-marker contact__icon"></i>
+
+          <div>
+            <h3 class="contact__title">Location</h3>
+            <span class="contact__subtitle">Indonesia</span>
+          </div>
+        </div>
+      </div>
+
+      <form action="mailto:zidniryi123@gmail.com" method="POST" enctype="text/plain" class="contact__form grid">
+        <div class="contact__inputs grid">
+          <div class="contact__content">
+            <label for="name" class="contact__label">Name</label>
+            <input type="text" id="name" name="name" class="contact__input" required>
+          </div>
+
+          <div class="contact__content">
+            <label for="email" class="contact__label">Email</label>
+            <input type="email" id="email" name="email" class="contact__input" required>
+          </div>
+        </div>
+
+        <div class="contact__content">
+          <label for="project" class="contact__label">Project</label>
+          <input type="text" id="project" name="project" class="contact__input" required>
+        </div>
+
+        <div class="contact__content">
+          <label for="message" class="contact__label">Message</label>
+          <textarea id="message" name="message" cols="30" rows="7" class="contact__input" required></textarea>
+        </div>
+
+        <div>
+          <button type="submit" class="button button--flex">
+            Send Message
+            <i class="uil uil-message button__icon"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!--==================== FOOTER ====================-->
+
+  <footer class="footer">
+    <div class="footer__bg">
+      <div class="footer__container container grid">
+        <div>
+          <h1 class="footer__title">zidniryi</h1>
+          <span class="footer__subtitle">Software Developer</span>
+        </div>
+
+        <ul class="footer__links">
+          <li>
+            <a href="#services" class="footer__link">Services</a>
+          </li>
+          <li>
+            <a href="#portfolio" class="footer__link">Portfolio</a>
+          </li>
+          <li>
+            <a href="#contact" class="footer__link">Contact</a>
+          </li>
+        </ul>
+
+        <div class="footer__socials">
+          <a href="https://web.facebook.com/zidniridwan.nulmuarif/?locale=ms_MY&_rdc=1&_rdr#" target="_blank"
+            class="footer__social">
+            <i class="uil uil-facebook-f"></i>
+          </a>
+
+          <a href="https://www.instagram.com/zidniryi/?hl=en" target="_blank" class="footer__social">
+            <i class="uil uil-instagram"></i>
+          </a>
+
+          <a href="https://x.com/zidniryi?lang=en" target="_blank" class="footer__social">
+            <i class="uil uil-twitter-alt"></i>
+          </a>
+        </div>
+      </div>
+
+      <p class="footer__copy">&#169; Zidni Ridwan Nulmuarif All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!--==================== SCROLL TOP ====================-->
+
+  <a href="#" class="scrollup" id="scroll-up">
+    <i class="uil uil-arrow-up scrollup__icon"></i>
+  </a>
+
+  <!--==================== SWIPER JS ====================-->
+  <script src="/assets/js/swiper-bundle.min.js"></script>
+
+  <!--==================== MAIN JS ====================-->
+  <script src="assets/js/main.js"></script>
+
+  <!-- ===================== SHOW/HIDE LOADER ==================== -->
+  <script>
+    window.onload = function () {
+      document.getElementById("loading").style.display = "none";
+    };
+  </script>
+
+  <!-- =====================REGISTER SERVICE WORKER================ -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/serviceWorker.js")
+          .then((res) => console.log("service worker registered"))
+          .catch((err) => console.log("service worker not registered", err));
+      });
+    }
+  </script>
+</body>
+
 </html>
