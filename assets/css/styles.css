@@ -1461,3 +1461,9 @@ header {
     margin-bottom: 6px;
   }
 }
+
+.about__image {
+  border-radius: 55%;
+  border-width: 10px;
+  border-color: rgb(255, 255, 255);
+}
