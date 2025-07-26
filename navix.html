@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Complete documentation for the Navix file navigator and symbol indexing tool">
+		<meta name="author" content="Zidni Ridwan Nulmuarif">
+		<meta name="keywords" content="Navix, Documentation, File Navigator, Symbol Indexing, Autocomplete, TUI, C++, TypeScript, JavaScript, Python, Go, Swift, Kotlin, Java, PHP, Ruby, Rust, Bash, Text Files">
+		<meta name="robots" content="index, follow">
+		<meta name="googlebot" content="index, follow">
+		<meta name="bingbot" content="index, follow">
+		<meta name="yandexbot" content="index, follow">
+    <title>Navix Documentation</title>
+</head>
+<body>
+ <h1 id="-navix-documentation">📚 Navix Documentation</h1>
+<p><strong>Complete documentation for the Navix file navigator and symbol indexing tool</strong></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage-guide">Usage Guide</a></li>
+<li><a href="#api-reference">API Reference</a></li>
+<li><a href="#development-guide">Development Guide</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#contributing">Contributing</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>Navix is a lightning-fast C++ file navigator with symbol indexing and autocomplete capabilities. It provides a powerful TUI (Text User Interface) for navigating codebases and finding symbols across multiple programming languages.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Multi-Language Support</strong>: C++, TypeScript/JavaScript, Python, Go, Swift, Kotlin, Java, PHP, Ruby, Rust, Bash, and text files</li>
+<li><strong>Symbol Indexing</strong>: Parse and index symbols from various programming languages</li>
+<li><strong>Autocomplete Engine</strong>: Intelligent code completion with fuzzy matching</li>
+<li><strong>Cross-Platform</strong>: Runs on Unix/Linux/macOS and Windows</li>
+<li><strong>Performance Monitoring</strong>: Built-in performance profiling</li>
+<li><strong>LSP Server</strong>: Language Server Protocol integration</li>
+<li><strong>File Watching</strong>: Real-time file system monitoring</li>
+<li><strong>Export Formats</strong>: JSON, ctags, and LSP-compatible output</li>
+</ul>
+<h3 id="supported-languages">Supported Languages</h3>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>File Extensions</th>
+<th>Symbol Types</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C++</td>
+<td><code>.cpp</code>, <code>.hpp</code>, <code>.cc</code>, <code>.hh</code>, <code>.cxx</code>, <code>.hxx</code></td>
+<td>Functions, Classes, Structs, Variables, Enums, Typedefs, Macros, Namespaces</td>
+</tr>
+<tr>
+<td>TypeScript/JavaScript</td>
+<td><code>.ts</code>, <code>.js</code>, <code>.tsx</code>, <code>.jsx</code></td>
+<td>Functions, Classes, Interfaces, Types, Constants, Imports, Exports</td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>.py</code>, <code>.pyw</code></td>
+<td>Functions, Classes, Methods, Variables, Imports, Decorators</td>
+</tr>
+<tr>
+<td>Go</td>
+<td><code>.go</code></td>
+<td>Functions, Methods, Structs, Interfaces, Types, Variables, Constants</td>
+</tr>
+<tr>
+<td>Swift</td>
+<td><code>.swift</code></td>
+<td>Functions, Methods, Classes, Structs, Protocols, Enums, Extensions</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>.kt</code>, <code>.kts</code></td>
+<td>Functions, Classes, Objects, Variables, Properties</td>
+</tr>
+<tr>
+<td>Java</td>
+<td><code>.java</code></td>
+<td>Methods, Classes, Interfaces, Variables, Constants</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><code>.php</code></td>
+<td>Functions, Classes, Variables, Constants</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td><code>.rb</code></td>
+<td>Methods, Classes, Modules, Variables, Constants</td>
+</tr>
+<tr>
+<td>Rust</td>
+<td><code>.rs</code></td>
+<td>Functions, Structs, Enums, Traits, Variables</td>
+</tr>
+<tr>
+<td>Bash/Shell</td>
+<td><code>.sh</code>, <code>.bash</code></td>
+<td>Functions, Variables, Aliases</td>
+</tr>
+<tr>
+<td>Text</td>
+<td><code>.txt</code>, <code>.md</code>, <code>.rst</code></td>
+<td>Headers, URLs, Emails, TODOs, Notes</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="architecture">Architecture</h2>
+<h3 id="core-components">Core Components</h3>
+<pre><code>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   FileScanner   │    │   SymbolIndex   │    │   TUI Engine    │
+│                 │    │                 │    │                 │
+│ • Scan files    │───▶│ • Parse symbols │───▶│ • Interactive   │
+│ • Filter types  │    │ • Build index   │    │   interface     │
+│ • <span class="hljs-keyword">Recursive</span>     │    │ • <span class="hljs-keyword">Search</span>        │    │ • Navigation    │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  FileWatcher    │    │ Autocomplete    │    │ Performance     │
+│                 │    │   Engine        │    │   Logger        │
+│ • Watch changes │    │ • Fuzzy <span class="hljs-keyword">match</span>   │    │ • Profile ops   │
+│ • Real-<span class="hljs-built_in">time</span>     │    │ • Prefix <span class="hljs-keyword">match</span>  │    │ • Metrics       │
+│ • Notifications │    │ • Suggestions   │    │ • Reports       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+</code></pre><h3 id="class-hierarchy">Class Hierarchy</h3>
+<h4 id="core-classes">Core Classes</h4>
+<ol>
+<li><strong>SymbolIndex</strong> - Main symbol parsing and indexing engine</li>
+<li><strong>FileScanner</strong> - File system scanning and filtering</li>
+<li><strong>TUI</strong> - Text User Interface for interactive navigation</li>
+<li><strong>FileWatcher</strong> - Real-time file system monitoring</li>
+<li><strong>AutocompleteEngine</strong> - Intelligent code completion</li>
+<li><strong>PerformanceLogger</strong> - Performance profiling and metrics</li>
+<li><strong>JsonExporter</strong> - Export symbols to various formats</li>
+<li><strong>LSPServer</strong> - Language Server Protocol implementation</li>
+</ol>
+<h4 id="symbol-types">Symbol Types</h4>
+<pre><code class="lang-cpp"><span class="hljs-symbol">enum</span> class SymbolType {
+    // C++ symbols
+    <span class="hljs-meta">FUNCTION</span>, CLASS, <span class="hljs-keyword">STRUCT, </span>VARIABLE, ENUM, TYPEDEF, <span class="hljs-meta">MACRO</span>, NAMESPACE,
+
+    // TypeScript/JavaScript symbols
+    JS_FUNCTION, JS_ARROW_FUNCTION, JS_CLASS, JS_INTERFACE, JS_TYPE,
+    JS_CONST, JS_LET, JS_VAR, JS_IMPORT, JS_EXPORT, JS_MODULE,
+
+    // Python symbols
+    PY_FUNCTION, PY_CLASS, PY_METHOD, PY_VARIABLE, PY_IMPORT,
+    PY_FROM_IMPORT, PY_DECORATOR, PY_LAMBDA,
+
+    // Go symbols
+    GO_FUNCTION, GO_METHOD, GO_STRUCT, GO_INTERFACE, GO_TYPE,
+    GO_VARIABLE, GO_CONSTANT, GO_PACKAGE, GO_IMPORT,
+
+    // <span class="hljs-keyword">Swift </span>symbols
+    <span class="hljs-keyword">SWIFT_FUNCTION, </span><span class="hljs-keyword">SWIFT_METHOD, </span><span class="hljs-keyword">SWIFT_CLASS, </span><span class="hljs-keyword">SWIFT_STRUCT,
+</span>    <span class="hljs-keyword">SWIFT_PROTOCOL, </span><span class="hljs-keyword">SWIFT_ENUM, </span><span class="hljs-keyword">SWIFT_EXTENSION, </span><span class="hljs-keyword">SWIFT_VARIABLE,
+</span>    <span class="hljs-keyword">SWIFT_CONSTANT, </span><span class="hljs-keyword">SWIFT_PROPERTY, </span><span class="hljs-keyword">SWIFT_INITIALIZER, </span><span class="hljs-keyword">SWIFT_SUBSCRIPT,
+</span>    <span class="hljs-keyword">SWIFT_IMPORT,
+</span>
+    // Text file symbols
+    TXT_HEADER, TXT_SUBHEADER, TXT_URL, TXT_EMAIL, TXT_TODO,
+    TXT_NOTE, TXT_FIXME, TXT_LINE, TXT_WORD,
+
+    UNKNOWN
+}<span class="hljs-comment">;</span>
+</code></pre>
+<h3 id="platform-support">Platform Support</h3>
+<h4 id="unix-linux-macos">Unix/Linux/macOS</h4>
+<ul>
+<li><strong>TUI</strong>: Full ncurses-based interface</li>
+<li><strong>Dependencies</strong>: ncurses library</li>
+<li><strong>Features</strong>: Advanced color support, window management</li>
+</ul>
+<h4 id="windows">Windows</h4>
+<ul>
+<li><strong>TUI</strong>: Windows Console API</li>
+<li><strong>Dependencies</strong>: None (statically linked)</li>
+<li><strong>Features</strong>: Simplified but functional interface</li>
+</ul>
+<hr>
+<h2 id="installation">Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li><strong>C++17</strong> compatible compiler (GCC 7+, Clang 5+, MSVC 2017+)</li>
+<li><strong>CMake</strong> 3.10 or higher</li>
+<li><strong>Platform-specific dependencies</strong> (see below)</li>
+</ul>
+<h3 id="platform-specific-dependencies">Platform-Specific Dependencies</h3>
+<h4 id="unix-linux-macos">Unix/Linux/macOS</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Ubuntu/Debian</span>
+sudo apt <span class="hljs-keyword">install </span>libncurses5-dev pkg-<span class="hljs-built_in">config</span>
+
+<span class="hljs-comment"># Fedora/RHEL</span>
+sudo dnf <span class="hljs-keyword">install </span>ncurses-devel pkg-<span class="hljs-built_in">config</span>
+
+<span class="hljs-comment"># macOS</span>
+<span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>ncurses pkg-<span class="hljs-built_in">config</span>
+</code></pre>
+<h4 id="windows">Windows</h4>
+<ul>
+<li>No external dependencies required</li>
+<li>MinGW-w64 for cross-compilation (optional)</li>
+</ul>
+<h3 id="installation-methods">Installation Methods</h3>
+<h4 id="1-package-managers">1. Package Managers</h4>
+<p><strong>Linux (Debian/Ubuntu)</strong></p>
+<pre><code class="lang-bash"># Build <span class="hljs-built_in">and</span> install .<span class="hljs-keyword">deb</span> package
+./build_deb.<span class="hljs-keyword">sh</span>
+sudo dpkg -i navix_1.<span class="hljs-number">0.0</span>_amd64.<span class="hljs-keyword">deb</span>
+</code></pre>
+<p><strong>macOS</strong></p>
+<pre><code class="lang-bash"># <span class="hljs-keyword">Build </span><span class="hljs-keyword">and </span>install .pkg
+./<span class="hljs-keyword">build.sh </span>pkg
+<span class="hljs-symbol">sudo</span> installer -pkg navix-installer.pkg -target /
+</code></pre>
+<h4 id="2-manual-build">2. Manual Build</h4>
+<pre><code class="lang-bash"># Clone repository
+git clone http<span class="hljs-variable">s:</span>//github.<span class="hljs-keyword">com</span>/zidniryi/navix.git
+<span class="hljs-keyword">cd</span> navix
+
+# Build <span class="hljs-keyword">for</span> current platform
+./build.<span class="hljs-keyword">sh</span> native
+
+# Build <span class="hljs-keyword">for</span> <span class="hljs-keyword">all</span> platforms
+./build.<span class="hljs-keyword">sh</span> <span class="hljs-keyword">all</span>
+
+# Build <span class="hljs-keyword">for</span> Windows (cross-compilation)
+./build.<span class="hljs-keyword">sh</span> windows
+</code></pre>
+<h4 id="3-cmake-build">3. CMake Build</h4>
+<pre><code class="lang-bash"><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-keyword">cd</span> build
+cmake ..
+<span class="hljs-keyword">make</span>
+</code></pre>
+<h3 id="verification">Verification</h3>
+<pre><code class="lang-bash"><span class="hljs-comment"># Check installation</span>
+navix <span class="hljs-comment">--version</span>
+
+<span class="hljs-comment"># Test basic functionality</span>
+navix . <span class="hljs-comment">--search main</span>
+</code></pre>
+<hr>
+<h2 id="usage-guide">Usage Guide</h2>
+<h3 id="basic-commands">Basic Commands</h3>
+<h4 id="1-scan-project">1. Scan Project</h4>
+<pre><code class="lang-bash"># Scan <span class="hljs-keyword">all</span> supported <span class="hljs-keyword">files</span> in current directory
+navix .
+
+# Scan specific directory
+navix /path/<span class="hljs-keyword">to</span>/project
+
+# Scan with specific <span class="hljs-keyword">file</span> types
+navix . --cpp          # C++ <span class="hljs-keyword">files</span> <span class="hljs-keyword">only</span>
+navix . --<span class="hljs-keyword">ts</span>           # TypeScript/JavaScript <span class="hljs-keyword">files</span>
+navix . --<span class="hljs-keyword">py</span>           # Python <span class="hljs-keyword">files</span> <span class="hljs-keyword">only</span>
+</code></pre>
+<h4 id="2-search-symbols">2. Search Symbols</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Search for symbols (fuzzy matching)</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--search</span> <span class="hljs-string">functionName
+</span>
+<span class="hljs-comment"># Exact search</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--search</span> <span class="hljs-string">"exactSymbolName"</span>
+
+<span class="hljs-comment"># Navigate to specific symbol</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--goto</span> <span class="hljs-string">className</span>
+</code></pre>
+<h4 id="3-interactive-modes">3. Interactive Modes</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Interactive TUI mode</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--tui</span>
+
+<span class="hljs-comment"># Interactive autocomplete</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--autocomplete</span>
+
+<span class="hljs-comment"># Get completions for query</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--complete</span> <span class="hljs-string">"partialName"</span>
+</code></pre>
+<h4 id="4-live-monitoring">4. Live Monitoring</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Live file watching</span>
+navix . <span class="hljs-comment">--live</span>
+
+<span class="hljs-comment"># Live mode with performance logging</span>
+navix . <span class="hljs-comment">--live --perf</span>
+</code></pre>
+<h4 id="5-export-formats">5. Export Formats</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Export to JSON</span>
+navix . <span class="hljs-comment">--json symbols.json</span>
+
+<span class="hljs-comment"># Export compact JSON</span>
+navix . <span class="hljs-comment">--json-compact</span>
+
+<span class="hljs-comment"># Export with statistics</span>
+navix . <span class="hljs-comment">--json-stats</span>
+
+<span class="hljs-comment"># Export LSP-compatible JSON</span>
+navix . <span class="hljs-comment">--json-lsp</span>
+
+<span class="hljs-comment"># Export ctags format</span>
+navix . <span class="hljs-comment">--export-tags</span>
+</code></pre>
+<h3 id="advanced-usage">Advanced Usage</h3>
+<h4 id="performance-monitoring">Performance Monitoring</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Enable performance logging</span>
+navix . <span class="hljs-comment">--perf</span>
+
+<span class="hljs-comment"># View performance metrics</span>
+navix . <span class="hljs-comment">--perf --json-stats</span>
+</code></pre>
+<h4 id="language-server-protocol">Language Server Protocol</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Start LSP server mode</span>
+navix . <span class="hljs-comment">--lsp</span>
+</code></pre>
+<h4 id="custom-file-extensions">Custom File Extensions</h4>
+<pre><code class="lang-bash"># <span class="hljs-selector-tag">Scan</span> <span class="hljs-selector-tag">specific</span> <span class="hljs-selector-tag">file</span> <span class="hljs-selector-tag">extensions</span>
+<span class="hljs-selector-tag">navix</span> . <span class="hljs-selector-tag">--ext</span> <span class="hljs-selector-class">.cpp</span> <span class="hljs-selector-class">.hpp</span> <span class="hljs-selector-class">.cc</span> <span class="hljs-selector-class">.hh</span>
+</code></pre>
+<h3 id="interactive-tui-commands">Interactive TUI Commands</h3>
+<p>When in TUI mode (<code>--tui</code>), use these keyboard shortcuts:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>j/k</code></td>
+<td>Navigate up/down</td>
+</tr>
+<tr>
+<td><code>Enter</code></td>
+<td>Open file at symbol</td>
+</tr>
+<tr>
+<td><code>Ctrl+f</code></td>
+<td>Search mode</td>
+</tr>
+<tr>
+<td><code>Ctrl+n</code></td>
+<td>Next search result</td>
+</tr>
+<tr>
+<td><code>Ctrl+p</code></td>
+<td>Previous search result</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>Quit</td>
+</tr>
+<tr>
+<td><code>h</code></td>
+<td>Help</td>
+</tr>
+<tr>
+<td><code>Ctrl+c</code></td>
+<td>Force quit</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="symbolindex-class">SymbolIndex Class</h3>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="lang-cpp">SymbolIndex()<span class="hljs-comment">;</span>
+</code></pre>
+<h4 id="public-methods">Public Methods</h4>
+<h5 id="-void-addsymbol-const-symbol-symbol-"><code>void addSymbol(const Symbol&amp; symbol)</code></h5>
+<p>Add a symbol to the index.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>symbol</code> - Symbol object to add</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-selector-tag">SymbolIndex</span> <span class="hljs-selector-tag">index</span>;
+<span class="hljs-selector-tag">Symbol</span> <span class="hljs-selector-tag">sym</span>(<span class="hljs-string">"main"</span>, <span class="hljs-attribute">SymbolType</span>::FUNCTION, <span class="hljs-string">"main.cpp"</span>, <span class="hljs-number">10</span>);
+<span class="hljs-selector-tag">index</span><span class="hljs-selector-class">.addSymbol</span>(sym);
+</code></pre>
+<h5 id="-void-buildindex-const-std-vector-std-string-files-"><code>void buildIndex(const std::vector&lt;std::string&gt;&amp; files)</code></h5>
+<p>Build symbol index from a list of files.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>files</code> - Vector of file paths to parse</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; files = {<span class="hljs-string">"main.cpp"</span>, <span class="hljs-string">"utils.hpp"</span>};
+index.buildIndex(files);
+</code></pre>
+<h5 id="-std-vector-symbol-search-const-std-string-query-bool-fuzzy-true-"><code>std::vector&lt;Symbol&gt; search(const std::string&amp; query, bool fuzzy = true)</code></h5>
+<p>Search for symbols using fuzzy or exact matching.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>query</code> - Search query string</li>
+<li><code>fuzzy</code> - Enable fuzzy matching (default: true)</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Vector of matching symbols</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">auto</span> results = index.search(<span class="hljs-string">"main"</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> <span class="hljs-keyword">auto</span>&amp; symbol : results) {
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; symbol.name &lt;&lt; <span class="hljs-string">" in "</span> &lt;&lt; symbol.file &lt;&lt; <span class="hljs-string">":"</span> &lt;&lt; symbol.line &lt;&lt; <span class="hljs-string">"\n"</span>;
+}
+</code></pre>
+<h5 id="-std-vector-symbol-exactsearch-const-std-string-query-"><code>std::vector&lt;Symbol&gt; exactSearch(const std::string&amp; query)</code></h5>
+<p>Perform exact symbol search.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>query</code> - Exact symbol name to search for</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Vector of exact matches</li>
+</ul>
+<h5 id="-std-vector-symbol-fuzzysearch-const-std-string-query-"><code>std::vector&lt;Symbol&gt; fuzzySearch(const std::string&amp; query)</code></h5>
+<p>Perform fuzzy symbol search using Levenshtein distance.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>query</code> - Query string for fuzzy matching</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Vector of fuzzy matches</li>
+</ul>
+<h5 id="-void-clear-"><code>void clear()</code></h5>
+<p>Clear all symbols from the index.</p>
+<h5 id="-size_t-size-const-"><code>size_t size() const</code></h5>
+<p>Get the number of symbols in the index.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Number of symbols</li>
+</ul>
+<h5 id="-std-string-symboltypetostring-symboltype-type-const-"><code>std::string symbolTypeToString(SymbolType type) const</code></h5>
+<p>Convert symbol type enum to string representation.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>type</code> - Symbol type enum</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>String representation of symbol type</li>
+</ul>
+<h3 id="filescanner-class">FileScanner Class</h3>
+<h4 id="static-methods">Static Methods</h4>
+<h5 id="-std-vector-std-string-scandirectory-const-std-string-rootpath-"><code>std::vector&lt;std::string&gt; scanDirectory(const std::string&amp; rootPath)</code></h5>
+<p>Scan directory for all supported file types.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rootPath</code> - Root directory path</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Vector of file paths</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-attribute">auto files</span> = FileScanner::scanDirectory(<span class="hljs-string">"/path/to/project"</span>);
+</code></pre>
+<h5 id="-std-vector-std-string-scanbyextensions-const-std-string-rootpath-const-std-vector-std-string-extensions-"><code>std::vector&lt;std::string&gt; scanByExtensions(const std::string&amp; rootPath, const std::vector&lt;std::string&gt;&amp; extensions)</code></h5>
+<p>Scan directory for specific file extensions.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rootPath</code> - Root directory path</li>
+<li><code>extensions</code> - Vector of file extensions to include</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Vector of matching file paths</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; exts = {<span class="hljs-string">".cpp"</span>, <span class="hljs-string">".hpp"</span>};
+<span class="hljs-keyword">auto</span> files = FileScanner::scanByExtensions(<span class="hljs-string">"/path/to/project"</span>, exts);
+</code></pre>
+<h3 id="tui-class">TUI Class</h3>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="lang-cpp">TUI(<span class="hljs-name">SymbolIndex&amp;</span> index)<span class="hljs-comment">;</span>
+</code></pre>
+<h4 id="public-methods">Public Methods</h4>
+<h5 id="-void-run-"><code>void run()</code></h5>
+<p>Start the interactive TUI interface.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp">SymbolIndex index<span class="hljs-comment">;</span>
+TUI tui(index)<span class="hljs-comment">;</span>
+tui.run()<span class="hljs-comment">;</span>
+</code></pre>
+<h5 id="-void-setsearchquery-const-std-string-query-"><code>void setSearchQuery(const std::string&amp; query)</code></h5>
+<p>Set the initial search query.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>query</code> - Initial search query</li>
+</ul>
+<h3 id="filewatcher-class">FileWatcher Class</h3>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="lang-cpp">FileWatcher(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; path);
+</code></pre>
+<h4 id="public-methods">Public Methods</h4>
+<h5 id="-void-start-"><code>void start()</code></h5>
+<p>Start watching for file changes.</p>
+<h5 id="-void-stop-"><code>void stop()</code></h5>
+<p>Stop file watching.</p>
+<h5 id="-void-setcallback-std-function-void-const-std-string-callback-"><code>void setCallback(std::function&lt;void(const std::string&amp;)&gt; callback)</code></h5>
+<p>Set callback function for file change events.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>callback</code> - Function to call when files change</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-function">FileWatcher <span class="hljs-title">watcher</span><span class="hljs-params">(<span class="hljs-string">"/path/to/project"</span>)</span></span>;
+watcher.setCallback([](<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; file) {
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"File changed: "</span> &lt;&lt; file &lt;&lt; <span class="hljs-string">"\n"</span>;
+});
+watcher.start();
+</code></pre>
+<h3 id="autocompleteengine-class">AutocompleteEngine Class</h3>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="lang-cpp">AutocompleteEngine(<span class="hljs-keyword">const</span> SymbolIndex&amp; <span class="hljs-keyword">index</span>);
+</code></pre>
+<h4 id="public-methods">Public Methods</h4>
+<h5 id="-std-vector-std-string-getcompletions-const-std-string-query-"><code>std::vector&lt;std::string&gt; getCompletions(const std::string&amp; query)</code></h5>
+<p>Get autocomplete suggestions for a query.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>query</code> - Partial query string</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Vector of completion suggestions</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp">AutocompleteEngine engine(index)<span class="hljs-comment">;</span>
+auto completions = engine.getCompletions(<span class="hljs-string">"main"</span>)<span class="hljs-comment">;</span>
+</code></pre>
+<h3 id="performancelogger-class">PerformanceLogger Class</h3>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="lang-cpp">PerformanceLogger()<span class="hljs-comment">;</span>
+</code></pre>
+<h4 id="public-methods">Public Methods</h4>
+<h5 id="-void-starttimer-const-std-string-operation-"><code>void startTimer(const std::string&amp; operation)</code></h5>
+<p>Start timing an operation.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>operation</code> - Operation name</li>
+</ul>
+<h5 id="-void-endtimer-const-std-string-operation-"><code>void endTimer(const std::string&amp; operation)</code></h5>
+<p>End timing an operation.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>operation</code> - Operation name</li>
+</ul>
+<h5 id="-void-logmetric-const-std-string-metric-double-value-"><code>void logMetric(const std::string&amp; metric, double value)</code></h5>
+<p>Log a performance metric.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>metric</code> - Metric name</li>
+<li><code>value</code> - Metric value</li>
+</ul>
+<h5 id="-std-string-getreport-const-"><code>std::string getReport() const</code></h5>
+<p>Get performance report as string.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Formatted performance report</li>
+</ul>
+<h3 id="jsonexporter-class">JsonExporter Class</h3>
+<h4 id="static-methods">Static Methods</h4>
+<h5 id="-void-exporttojson-const-symbolindex-index-const-std-string-filename-bool-compact-false-"><code>void exportToJson(const SymbolIndex&amp; index, const std::string&amp; filename, bool compact = false)</code></h5>
+<p>Export symbols to JSON file.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>index</code> - Symbol index to export</li>
+<li><code>filename</code> - Output filename</li>
+<li><code>compact</code> - Use compact format (default: false)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-cpp">JsonExporter::exportToJson(index, <span class="hljs-string">"symbols.json"</span>, <span class="hljs-literal">false</span>);
+</code></pre>
+<h5 id="-void-exporttoctags-const-symbolindex-index-const-std-string-filename-"><code>void exportToCtags(const SymbolIndex&amp; index, const std::string&amp; filename)</code></h5>
+<p>Export symbols to ctags format.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>index</code> - Symbol index to export</li>
+<li><code>filename</code> - Output filename</li>
+</ul>
+<hr>
+<h2 id="development-guide">Development Guide</h2>
+<h3 id="building-from-source">Building from Source</h3>
+<h4 id="prerequisites">Prerequisites</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Install build dependencies</span>
+<span class="hljs-comment"># Ubuntu/Debian</span>
+sudo apt <span class="hljs-keyword">install </span><span class="hljs-keyword">build-essential </span>cmake libncurses5-dev pkg-<span class="hljs-built_in">config</span>
+
+<span class="hljs-comment"># macOS</span>
+<span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>cmake ncurses pkg-<span class="hljs-built_in">config</span>
+
+<span class="hljs-comment"># Windows</span>
+<span class="hljs-comment"># Install Visual Studio or MinGW-w64</span>
+</code></pre>
+<h4 id="build-process">Build Process</h4>
+<pre><code class="lang-bash"><span class="hljs-meta"># Clone repository</span>
+git clone https:<span class="hljs-comment">//github.com/zidniryi/navix.git</span>
+cd navix
+
+<span class="hljs-meta"># Create build directory</span>
+mkdir build &amp;&amp; cd build
+
+<span class="hljs-meta"># Configure with CMake</span>
+cmake -DCMAKE_BUILD_TYPE=Release ..
+
+<span class="hljs-meta"># Build</span>
+make -j$(nproc)
+
+<span class="hljs-meta"># Install (optional)</span>
+sudo make install
+</code></pre>
+<h4 id="development-build">Development Build</h4>
+<pre><code class="lang-bash"># Configure <span class="hljs-keyword">with</span> debug symbols
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+
+# Build <span class="hljs-keyword">with</span> debug information
+make -j$(nproc)
+
+# Run <span class="hljs-keyword">with</span> debugging
+gdb ./navix
+</code></pre>
+<h3 id="adding-language-support">Adding Language Support</h3>
+<h4 id="step-1-define-symbol-types">Step 1: Define Symbol Types</h4>
+<p>Add new symbol types to <code>SymbolType</code> enum in <code>src/Symbol.hpp</code>:</p>
+<pre><code class="lang-cpp"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">class</span> <span class="hljs-title">SymbolType</span> {</span>
+    /<span class="hljs-regexp">/ ... existing types ...
+
+    /</span><span class="hljs-regexp">/ New language symbols
+    NEW_FUNCTION,
+    NEW_CLASS,
+    NEW_VARIABLE,
+    /</span><span class="hljs-regexp">/ ...
+};</span>
+</code></pre>
+<h4 id="step-2-add-file-detection">Step 2: Add File Detection</h4>
+<p>Implement file detection method in <code>SymbolIndex</code> class:</p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">bool</span> SymbolIndex::isNewLanguage(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; filePath) <span class="hljs-keyword">const</span> {
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> ext = filePath.substr(filePath.find_last_of(<span class="hljs-string">'.'</span>));
+    <span class="hljs-keyword">return</span> ext == <span class="hljs-string">".new"</span> || ext == <span class="hljs-string">".ext"</span>;
+}
+</code></pre>
+<h4 id="step-3-implement-parser">Step 3: Implement Parser</h4>
+<p>Add parsing method for the new language:</p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">void</span> SymbolIndex::parseNewLanguage(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; line, 
+                                  <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; filePath, 
+                                  <span class="hljs-keyword">int</span> lineNumber) {
+    <span class="hljs-comment">// Implement language-specific parsing logic</span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-function">regex <span class="hljs-title">functionRegex</span><span class="hljs-params">(<span class="hljs-string">R"(\bfunction\s+(\w+))"</span>)</span></span>;
+    <span class="hljs-built_in">std</span>::smatch match;
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">std</span>::regex_search(line, match, functionRegex)) {
+        addSymbol(Symbol(match[<span class="hljs-number">1</span>].str(), SymbolType::NEW_FUNCTION, 
+                        filePath, lineNumber, line));
+    }
+
+    <span class="hljs-comment">// Add more patterns as needed</span>
+}
+</code></pre>
+<h4 id="step-4-update-string-conversion">Step 4: Update String Conversion</h4>
+<p>Add string conversion for new symbol types:</p>
+<pre><code class="lang-cpp"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> SymbolIndex::symbolTypeToString(SymbolType type) <span class="hljs-keyword">const</span> {
+    <span class="hljs-keyword">switch</span> (type) {
+        <span class="hljs-comment">// ... existing cases ...</span>
+        <span class="hljs-keyword">case</span> SymbolType::NEW_FUNCTION: <span class="hljs-keyword">return</span> <span class="hljs-string">"new-function"</span>;
+        <span class="hljs-keyword">case</span> SymbolType::NEW_CLASS: <span class="hljs-keyword">return</span> <span class="hljs-string">"new-class"</span>;
+        <span class="hljs-comment">// ...</span>
+    }
+}
+</code></pre>
+<h4 id="step-5-add-to-file-scanner">Step 5: Add to File Scanner</h4>
+<p>Update file scanner to include new extensions:</p>
+<pre><code class="lang-cpp"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; FileScanner::scanForNewLanguage(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; rootPath) {
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&gt; extensions = {<span class="hljs-string">".new"</span>, <span class="hljs-string">".ext"</span>};
+    <span class="hljs-keyword">return</span> scanByExtensions(rootPath, extensions);
+}
+</code></pre>
+<h4 id="step-6-update-cli-interface">Step 6: Update CLI Interface</h4>
+<p>Add command-line option in <code>main.cpp</code>:</p>
+<pre><code class="lang-cpp">} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mode == <span class="hljs-string">"--newlang"</span>) {
+    files = FileScanner::scanForNewLanguage(rootPath);
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"🔍 Scanning for New Language files in: "</span> &lt;&lt; rootPath &lt;&lt; <span class="hljs-string">"\n"</span>;
+    <span class="hljs-comment">// ... output logic</span>
+}
+</code></pre>
+<h3 id="testing">Testing</h3>
+<h4 id="unit-tests">Unit Tests</h4>
+<pre><code class="lang-bash"># <span class="hljs-keyword">Run</span> unit tests (<span class="hljs-keyword">if</span> available)
+make <span class="hljs-keyword">test</span>
+
+# <span class="hljs-keyword">Run</span> specific <span class="hljs-keyword">test</span>
+./test_symbol_index
+</code></pre>
+<h4 id="manual-testing">Manual Testing</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Test basic functionality</span>
+./navix . <span class="hljs-comment">--search main</span>
+./navix . <span class="hljs-comment">--goto FileScanner</span>
+./navix . <span class="hljs-comment">--export-tags</span>
+
+<span class="hljs-comment"># Test edge cases</span>
+./navix /nonexistent/path
+./navix . <span class="hljs-comment">--search ""</span>
+./navix . <span class="hljs-comment">--goto NonexistentSymbol</span>
+
+<span class="hljs-comment"># Test different file types</span>
+./navix . <span class="hljs-comment">--cpp</span>
+./navix . <span class="hljs-comment">--ts</span>
+./navix . <span class="hljs-comment">--py</span>
+</code></pre>
+<h4 id="performance-testing">Performance Testing</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Test with large codebase</span>
+./navix /path/<span class="hljs-keyword">to</span>/large/project <span class="hljs-comment">--perf</span>
+
+<span class="hljs-comment"># Compare performance</span>
+<span class="hljs-built_in">time</span> ./navix . <span class="hljs-comment">--search main</span>
+</code></pre>
+<h3 id="code-style">Code Style</h3>
+<h4 id="c-standards">C++ Standards</h4>
+<ul>
+<li><strong>C++17</strong> compliance required</li>
+<li>Use <strong>modern C++</strong> features appropriately</li>
+<li><strong>RAII</strong> for resource management</li>
+<li><strong>const-correctness</strong> where applicable</li>
+</ul>
+<h4 id="naming-conventions">Naming Conventions</h4>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Classes: PascalCase</span>
+<span class="hljs-keyword">class</span> SymbolIndex {};
+
+<span class="hljs-comment">// Functions: camelCase  </span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">parseFile</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; filePath)</span></span>;
+
+<span class="hljs-comment">// Variables: camelCase</span>
+<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> fileName;
+
+<span class="hljs-comment">// Constants: UPPER_SNAKE_CASE</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MAX_SYMBOLS = <span class="hljs-number">1000</span>;
+
+<span class="hljs-comment">// Private members: trailing underscore</span>
+<span class="hljs-keyword">class</span> Example {
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">int</span> count_;
+};
+</code></pre>
+<h4 id="code-organization">Code Organization</h4>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Header files (.hpp)</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> FILENAME_HPP</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FILENAME_HPP</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;system_headers&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-string">"local_headers.hpp"</span></span>
+
+class <span class="hljs-class">Example </span>{
+<span class="hljs-symbol">public:</span>
+    <span class="hljs-comment">// Public interface first</span>
+<span class="hljs-symbol">
+private:</span>
+    <span class="hljs-comment">// Private members last</span>
+};
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span> <span class="hljs-comment">// FILENAME_HPP</span></span>
+</code></pre>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="1-build-errors">1. Build Errors</h4>
+<p><strong>Error: <code>ncurses.h: No such file or directory</code></strong></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Ubuntu/Debian</span>
+sudo apt <span class="hljs-keyword">install </span>libncurses5-dev
+
+<span class="hljs-comment"># macOS</span>
+<span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>ncurses
+
+<span class="hljs-comment"># Fedora</span>
+sudo dnf <span class="hljs-keyword">install </span>ncurses-devel
+</code></pre>
+<p><strong>Error: <code>pkg-config: command not found</code></strong></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Ubuntu/Debian</span>
+sudo apt <span class="hljs-keyword">install </span>pkg-<span class="hljs-built_in">config</span>
+
+<span class="hljs-comment"># macOS</span>
+<span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span>pkg-<span class="hljs-built_in">config</span>
+</code></pre>
+<h4 id="2-runtime-errors">2. Runtime Errors</h4>
+<p><strong>Error: <code>navix: command not found</code></strong></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Add to PATH</span>
+<span class="hljs-built_in">export</span> PATH=<span class="hljs-string">"/usr/local/bin:<span class="hljs-variable">$PATH</span>"</span>
+
+<span class="hljs-comment"># Or create symlink</span>
+sudo ln <span class="hljs-_">-s</span> /path/to/navix /usr/<span class="hljs-built_in">local</span>/bin/navix
+</code></pre>
+<p><strong>Error: <code>Permission denied</code></strong></p>
+<pre><code class="lang-bash"><span class="hljs-meta"># Make executable</span>
+chmod +x navix-native
+
+<span class="hljs-meta"># Or install properly</span>
+sudo make install
+</code></pre>
+<h4 id="3-performance-issues">3. Performance Issues</h4>
+<p><strong>Slow symbol indexing</strong></p>
+<pre><code class="lang-bash"><span class="hljs-meta"># Use specific file types only</span>
+navix . --cpp
+
+<span class="hljs-meta"># Enable performance logging</span>
+navix . --perf
+
+<span class="hljs-meta"># Check system resources</span>
+top
+htop
+</code></pre>
+<p><strong>Memory usage high</strong></p>
+<pre><code class="lang-bash"><span class="hljs-meta"># Limit file scanning</span>
+navix . --ext .cpp .hpp
+
+<span class="hljs-meta"># Use smaller project subset</span>
+navix ./src
+</code></pre>
+<h4 id="4-platform-specific-issues">4. Platform-Specific Issues</h4>
+<p><strong>Windows: Console not responding</strong></p>
+<ul>
+<li>Use Windows Terminal or PowerShell</li>
+<li>Ensure Windows Console API is available</li>
+<li>Try running as administrator</li>
+</ul>
+<p><strong>macOS: ncurses not found</strong></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Install via Homebrew</span>
+brew install ncurses
+
+<span class="hljs-comment"># Set PKG_CONFIG_PATH</span>
+<span class="hljs-built_in">export</span> PKG_CONFIG_PATH=<span class="hljs-string">"/usr/local/opt/ncurses/lib/pkgconfig:<span class="hljs-variable">$PKG_CONFIG_PATH</span>"</span>
+</code></pre>
+<p><strong>Linux: TUI not displaying correctly</strong></p>
+<pre><code class="lang-bash"><span class="hljs-comment"># Check terminal type</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$TERM</span>
+
+<span class="hljs-comment"># Set terminal type</span>
+<span class="hljs-built_in">export</span> TERM=xterm-256color
+
+<span class="hljs-comment"># Check ncurses installation</span>
+pkg-config --modversion ncurses
+</code></pre>
+<h3 id="debug-mode">Debug Mode</h3>
+<h4 id="enable-debug-output">Enable Debug Output</h4>
+<pre><code class="lang-bash"># Build <span class="hljs-keyword">with</span> debug symbols
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+make
+
+# Run <span class="hljs-keyword">with</span> debug output
+./navix . --perf --json-stats
+</code></pre>
+<h4 id="verbose-mode">Verbose Mode</h4>
+<pre><code class="lang-bash"># Enable <span class="hljs-keyword">verbose</span> output
+./navix . --perf --<span class="hljs-keyword">verbose</span>
+
+# Check <span class="hljs-keyword">all</span> available <span class="hljs-keyword">options</span>
+./navix --<span class="hljs-keyword">help</span>
+</code></pre>
+<h3 id="getting-help">Getting Help</h3>
+<h4 id="documentation">Documentation</h4>
+<ul>
+<li>Check this documentation file</li>
+<li>Read the README.md</li>
+<li>Review CONTRIBUTING.md</li>
+</ul>
+<h4 id="community-support">Community Support</h4>
+<ul>
+<li>GitHub Issues: Report bugs and request features</li>
+<li>GitHub Discussions: Ask questions and share ideas</li>
+<li>Email maintainers: For private concerns</li>
+</ul>
+<hr>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-usage-examples">Basic Usage Examples</h3>
+<h4 id="1-find-all-functions">1. Find All Functions</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Find all functions in C++ files</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--cpp</span> <span class="hljs-built_in">--search</span> <span class="hljs-string">"function"</span>
+
+<span class="hljs-comment"># Find specific function</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--search</span> <span class="hljs-string">"main"</span>
+
+<span class="hljs-comment"># Find functions in specific file</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--search</span> <span class="hljs-string">"parseFile"</span>
+</code></pre>
+<h4 id="2-navigate-to-classes">2. Navigate to Classes</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Find all classes</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--search</span> <span class="hljs-string">"class"</span>
+
+<span class="hljs-comment"># Navigate to specific class</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--goto</span> <span class="hljs-string">"SymbolIndex"</span>
+
+<span class="hljs-comment"># Find classes in specific language</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--cpp</span> <span class="hljs-built_in">--search</span> <span class="hljs-string">"class"</span>
+</code></pre>
+<h4 id="3-export-project-structure">3. Export Project Structure</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Export to JSON</span>
+navix . --<span class="hljs-keyword">json </span>project_symbols.<span class="hljs-keyword">json
+</span>
+<span class="hljs-comment"># Export compact format</span>
+navix . --<span class="hljs-keyword">json-compact </span>compact_symbols.<span class="hljs-keyword">json
+</span>
+<span class="hljs-comment"># Export with statistics</span>
+navix . --<span class="hljs-keyword">json-stats </span>stats_symbols.<span class="hljs-keyword">json</span>
+</code></pre>
+<h3 id="advanced-examples">Advanced Examples</h3>
+<h4 id="1-multi-language-project-analysis">1. Multi-Language Project Analysis</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Analyze mixed-language project</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--json</span> <span class="hljs-string">mixed_languages.</span><span class="hljs-string">json
+</span>
+<span class="hljs-comment"># Filter by specific languages</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--cpp</span> <span class="hljs-built_in">--ts</span> <span class="hljs-built_in">--py</span> <span class="hljs-built_in">--json</span> <span class="hljs-string">filtered.</span><span class="hljs-string">json</span>
+</code></pre>
+<h4 id="2-performance-analysis">2. Performance Analysis</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Profile symbol indexing</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--perf</span> <span class="hljs-built_in">--json-stats</span> <span class="hljs-string">performance.</span><span class="hljs-string">json
+</span>
+<span class="hljs-comment"># Compare different file types</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--cpp</span> <span class="hljs-built_in">--perf</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--ts</span> <span class="hljs-built_in">--perf</span>
+<span class="hljs-string">navix </span>. <span class="hljs-built_in">--py</span> <span class="hljs-built_in">--perf</span>
+</code></pre>
+<h4 id="3-editor-integration">3. Editor Integration</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Generate ctags for editor</span>
+navix . <span class="hljs-comment">--export-tags .tags</span>
+
+<span class="hljs-comment"># Start LSP server</span>
+navix . <span class="hljs-comment">--lsp</span>
+
+<span class="hljs-comment"># Export LSP-compatible format</span>
+navix . <span class="hljs-comment">--json-lsp lsp_symbols.json</span>
+</code></pre>
+<h4 id="4-live-development">4. Live Development</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># Watch for changes during development</span>
+navix . <span class="hljs-comment">--live --perf</span>
+
+<span class="hljs-comment"># Interactive development</span>
+navix . <span class="hljs-comment">--tui</span>
+
+<span class="hljs-comment"># Autocomplete during coding</span>
+navix . <span class="hljs-comment">--autocomplete</span>
+</code></pre>
+<h3 id="integration-examples">Integration Examples</h3>
+<h4 id="1-vim-neovim-integration">1. Vim/Neovim Integration</h4>
+<pre><code class="lang-vim"><span class="hljs-comment">" Add to .vimrc</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">tags</span>=.<span class="hljs-keyword">tags</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">tags</span>+=./.<span class="hljs-keyword">tags</span>
+
+<span class="hljs-comment">" Use ctags file generated by Navix</span>
+:!navix . --export-<span class="hljs-keyword">tags</span> .<span class="hljs-keyword">tags</span>
+</code></pre>
+<h4 id="2-vs-code-integration">2. VS Code Integration</h4>
+<pre><code class="lang-json"><span class="hljs-comment">// settings.json</span>
+{
+    <span class="hljs-string">"typescript.preferences.includePackageJsonAutoImports"</span>: <span class="hljs-string">"on"</span>,
+    <span class="hljs-string">"typescript.suggest.autoImports"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"typescript.preferences.includeCompletionsForModuleExports"</span>: <span class="hljs-literal">true</span>
+}
+</code></pre>
+<h4 id="3-shell-aliases">3. Shell Aliases</h4>
+<pre><code class="lang-bash"># Add <span class="hljs-keyword">to</span> .bashrc <span class="hljs-keyword">or</span> .zshrc
+<span class="hljs-keyword">alias</span> nav=<span class="hljs-symbol">'navix</span> . <span class="hljs-comment">--tui'</span>
+<span class="hljs-keyword">alias</span> navs=<span class="hljs-symbol">'navix</span> . <span class="hljs-comment">--search'</span>
+<span class="hljs-keyword">alias</span> navg=<span class="hljs-symbol">'navix</span> . <span class="hljs-comment">--goto'</span>
+<span class="hljs-keyword">alias</span> nave=<span class="hljs-symbol">'navix</span> . <span class="hljs-comment">--export-tags'</span>
+</code></pre>
+<h4 id="4-git-hooks">4. Git Hooks</h4>
+<pre><code class="lang-bash"><span class="hljs-comment"># .git/hooks/pre-commit</span>
+<span class="hljs-meta">#!/bin/bash</span>
+navix . --export-tags .tags
+git add .tags
+</code></pre>
+<h3 id="scripting-examples">Scripting Examples</h3>
+<h4 id="1-batch-processing">1. Batch Processing</h4>
+<pre><code class="lang-bash"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># process_projects.sh</span>
+
+<span class="hljs-keyword">for</span> project <span class="hljs-keyword">in</span> /path/to/projects/*; <span class="hljs-keyword">do</span>
+    <span class="hljs-keyword">if</span> [ <span class="hljs-_">-d</span> <span class="hljs-string">"<span class="hljs-variable">$project</span>"</span> ]; <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">echo</span> <span class="hljs-string">"Processing <span class="hljs-variable">$project</span>"</span>
+        navix <span class="hljs-string">"<span class="hljs-variable">$project</span>"</span> --json <span class="hljs-string">"<span class="hljs-variable">$project</span>"</span>_symbols.json
+    <span class="hljs-keyword">fi</span>
+<span class="hljs-keyword">done</span>
+</code></pre>
+<h4 id="2-ci-cd-integration">2. CI/CD Integration</h4>
+<pre><code class="lang-yaml"><span class="hljs-comment"># .github/workflows/navix.yml</span>
+<span class="hljs-attr">name:</span> Navix Analysis
+<span class="hljs-attr">on:</span> [push, pull_request]
+
+<span class="hljs-attr">jobs:</span>
+<span class="hljs-attr">  analyze:</span>
+<span class="hljs-attr">    runs-on:</span> ubuntu-latest
+<span class="hljs-attr">    steps:</span>
+<span class="hljs-attr">      - uses:</span> actions/checkout@v2
+<span class="hljs-attr">      - name:</span> Install Navix
+<span class="hljs-attr">        run:</span> <span class="hljs-string">|
+          git clone https://github.com/zidniryi/navix.git
+          cd navix
+          ./build.sh native
+          sudo cp navix-native /usr/local/bin/navix
+</span><span class="hljs-attr">      - name:</span> Analyze Code
+<span class="hljs-attr">        run:</span> navix . --json-stats analysis.json
+<span class="hljs-attr">      - name:</span> Upload Results
+<span class="hljs-attr">        uses:</span> actions/upload-artifact@v2
+<span class="hljs-attr">        with:</span>
+<span class="hljs-attr">          name:</span> navix-analysis
+<span class="hljs-attr">          path:</span> analysis.json
+</code></pre>
+<h4 id="3-performance-monitoring">3. Performance Monitoring</h4>
+<pre><code class="lang-bash"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># monitor_performance.sh</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Starting Navix performance monitoring..."</span>
+
+<span class="hljs-comment"># Baseline measurement</span>
+start_time=$(date +%s)
+navix . --perf --json-stats baseline.json
+baseline_time=$(( $(date +%s) - start_time ))
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Baseline time: <span class="hljs-variable">${baseline_time}</span>s"</span>
+
+<span class="hljs-comment"># Monitor over time</span>
+<span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">do</span>
+    start_time=$(date +%s)
+    navix . --perf --json-stats <span class="hljs-string">"perf_<span class="hljs-variable">$(date +%Y%m%d_%H%M%S)</span>.json"</span>
+    current_time=$(( $(date +%s) - start_time ))
+
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$(date)</span>: <span class="hljs-variable">${current_time}</span>s"</span>
+
+    <span class="hljs-keyword">if</span> [ <span class="hljs-variable">$current_time</span> <span class="hljs-_">-gt</span> $((baseline_time * 2)) ]; <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">echo</span> <span class="hljs-string">"WARNING: Performance degradation detected!"</span>
+    <span class="hljs-keyword">fi</span>
+
+    sleep 300  <span class="hljs-comment"># Check every 5 minutes</span>
+<span class="hljs-keyword">done</span>
+</code></pre>
+<hr>
+<h2 id="contributing">Contributing</h2>
+<h3 id="getting-started">Getting Started</h3>
+<ol>
+<li><strong>Fork the repository</strong></li>
+<li><strong>Clone your fork</strong><pre><code class="lang-bash">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/your-username/navix.git
+cd navix
+</code></pre>
+</li>
+<li><strong>Create a feature branch</strong><pre><code class="lang-bash">git checkout -b <span class="hljs-built_in">feature</span>/your-amazing-<span class="hljs-built_in">feature</span>
+</code></pre>
+</li>
+<li><strong>Make your changes</strong></li>
+<li><strong>Test thoroughly</strong><pre><code class="lang-bash">./build.<span class="hljs-keyword">sh</span> native
+./navix-native . --<span class="hljs-keyword">search</span> <span class="hljs-keyword">test</span>
+</code></pre>
+</li>
+<li><strong>Commit with clear message</strong><pre><code class="lang-bash"><span class="hljs-attribute">git</span> commit -m <span class="hljs-string">"feat: add amazing new feature"</span>
+</code></pre>
+</li>
+<li><strong>Push and create pull request</strong></li>
+</ol>
+<h3 id="development-guidelines">Development Guidelines</h3>
+<h4 id="code-style">Code Style</h4>
+<ul>
+<li>Follow existing code style and conventions</li>
+<li>Use meaningful variable and function names</li>
+<li>Add comments for complex logic</li>
+<li>Ensure C++17 compliance</li>
+</ul>
+<h4 id="testing">Testing</h4>
+<ul>
+<li>Test your changes on multiple platforms</li>
+<li>Add tests for new functionality</li>
+<li>Verify performance impact</li>
+<li>Test edge cases and error conditions</li>
+</ul>
+<h4 id="documentation">Documentation</h4>
+<ul>
+<li>Update documentation for new features</li>
+<li>Add examples for new functionality</li>
+<li>Update API reference if needed</li>
+<li>Include usage examples</li>
+</ul>
+<h3 id="areas-for-contribution">Areas for Contribution</h3>
+<h4 id="high-priority">High Priority</h4>
+<ul>
+<li><strong>Language Support</strong>: Add support for new programming languages</li>
+<li><strong>Performance</strong>: Optimize symbol parsing and indexing</li>
+<li><strong>Testing</strong>: Add comprehensive test suite</li>
+<li><strong>Documentation</strong>: Improve and expand documentation</li>
+</ul>
+<h4 id="medium-priority">Medium Priority</h4>
+<ul>
+<li><strong>Editor Integration</strong>: Enhance editor plugin support</li>
+<li><strong>Symbol Recognition</strong>: Improve parsing accuracy</li>
+<li><strong>Export Formats</strong>: Add new export formats</li>
+<li><strong>Configuration</strong>: Add configuration file support</li>
+</ul>
+<h4 id="nice-to-have">Nice to Have</h4>
+<ul>
+<li><strong>GUI Interface</strong>: Optional graphical interface</li>
+<li><strong>Plugins</strong>: VS Code extension</li>
+<li><strong>Analytics</strong>: Code metrics and insights</li>
+<li><strong>Themes</strong>: Customizable output styling</li>
+</ul>
+<h3 id="reporting-issues">Reporting Issues</h3>
+<h4 id="before-reporting">Before Reporting</h4>
+<ul>
+<li>Check existing issues</li>
+<li>Try the latest version</li>
+<li>Search documentation for solutions</li>
+</ul>
+<h4 id="when-reporting-include">When Reporting Include</h4>
+<ul>
+<li><strong>OS and version</strong></li>
+<li><strong>Compiler and version</strong></li>
+<li><strong>Steps to reproduce</strong></li>
+<li><strong>Expected vs actual behavior</strong></li>
+<li><strong>Error messages</strong></li>
+<li><strong>Sample files</strong> (if applicable)</li>
+</ul>
+<h3 id="recognition">Recognition</h3>
+<p>Contributors will be:</p>
+<ul>
+<li>Listed in CONTRIBUTORS.md</li>
+<li>Mentioned in release notes</li>
+<li>Thanked in the README</li>
+</ul>
+<hr>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<h2 id="support">Support</h2>
+<ul>
+<li><strong>GitHub Issues</strong>: <a href="https://github.com/zidniryi/navix/issues">Report bugs and request features</a></li>
+<li><strong>GitHub Discussions</strong>: <a href="https://github.com/zidniryi/navix/discussions">Ask questions and share ideas</a></li>
+<li><strong>Documentation</strong>: This file and <a href="README.md">README.md</a></li>
+<li><strong>Contributing</strong>: <a href="CONTRIBUTING.md">CONTRIBUTING.md</a></li>
+</ul>
+<hr>
+<p><strong>Made with ❤️ for developers who value speed and simplicity.</strong></p>
+<p><em>Navix - Navigate &amp; Index</em> </p>
+
+</body>
+</html>
