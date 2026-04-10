@@ -34,6 +34,7 @@ self.addEventListener("install", (installEvent) => {
   );
 });
 
+
 self.addEventListener("fetch", (fetchEvent) => {
   // Stale-while-revalidate strategy for all GET requests
   if (fetchEvent.request.method === "GET") {
@@ -45,7 +46,7 @@ self.addEventListener("fetch", (fetchEvent) => {
           });
           return networkResponse;
         }).catch(() => cachedResponse); // fallback to cache on network failure
-        
+
         return cachedResponse || fetchPromise;
       })
     );
