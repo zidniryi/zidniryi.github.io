@@ -34,21 +34,10 @@ self.addEventListener("install", (installEvent) => {
   );
 });
 
-
 self.addEventListener("fetch", (fetchEvent) => {
-  // Stale-while-revalidate strategy for all GET requests
-  if (fetchEvent.request.method === "GET") {
-    fetchEvent.respondWith(
-      caches.match(fetchEvent.request).then((cachedResponse) => {
-        const fetchPromise = fetch(fetchEvent.request).then((networkResponse) => {
-          caches.open(staticzidniryiData).then((cache) => {
-            cache.put(fetchEvent.request, networkResponse.clone());
-          });
-          return networkResponse;
-        }).catch(() => cachedResponse); // fallback to cache on network failure
-
-        return cachedResponse || fetchPromise;
-      })
-    );
-  }
+  fetchEvent.respondWith(
+    caches.match(fetchEvent.request).then((res) => {
+      return res || fetch(fetchEvent.request);
+    })
+  );
 });
