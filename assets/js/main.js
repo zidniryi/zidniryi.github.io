@@ -76,18 +76,29 @@ modalCloses.forEach((modalClose) => {
 
 /*==================== PORTFOLIO SWIPER ====================*/
 
-let swiper = new Swiper(".portfolio__container", {
-  cssMode: true,
-  loop: true,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
+const portfolioSection = document.querySelector('.portfolio__container');
+if (portfolioSection) {
+  const swiperObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        let swiper = new Swiper(".portfolio__container", {
+          cssMode: true,
+          loop: true,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: "0px 0px 500px 0px" });
+  swiperObserver.observe(portfolioSection);
+}
 
 /*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
 
