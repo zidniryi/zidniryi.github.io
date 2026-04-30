@@ -1,0 +1,54 @@
+{
+  "artist": {
+    "name": "Zidniryi",
+    "tagline": "Soundtrack of emotions and midnight thoughts",
+    "description": "Independent musician crafting cinematic soundscapes and emotional compositions for the night."
+  },
+  "albums": [
+    {
+      "id": "frostbite",
+      "title": "Frostbite",
+      "year": "2024",
+      "genre": "Indie · Cinematic",
+      "songs": [
+        {
+          "title": "Track 1",
+          "youtubeUrl": "https://www.youtube.com/watch?v=TN9XK3zGldo"
+        },
+        {
+          "title": "Track 2",
+          "youtubeUrl": "https://www.youtube.com/watch?v=CdQ0RdpTVEs"
+        },
+        {
+          "title": "Track 3",
+          "youtubeUrl": "https://www.youtube.com/watch?v=nFNJRQSyM-I"
+        },
+        {
+          "title": "Track 4",
+          "youtubeUrl": "https://www.youtube.com/watch?v=mmrsTxhb0CU"
+        }
+      ]
+    }
+    ,
+    {
+      "id": "mountains",
+      "title": "Mountains",
+      "year": "2024",
+      "genre": "Indie · Cinematic",
+      "songs": [
+        {
+          "title": "Track 1",
+          "youtubeUrl": "https://www.youtube.com/watch?v=DMOJJkBfDzE"
+        },
+        {
+          "title": "Track 2",
+          "youtubeUrl": "https://www.youtube.com/watch?v=I7J2WYsJjRU"
+        },
+        {
+          "title": "Track 3",
+          "youtubeUrl": "https://www.youtube.com/watch?v=yMqNZ6LDpXQ"
+        }
+      ]
+    }
+  ]
+}
