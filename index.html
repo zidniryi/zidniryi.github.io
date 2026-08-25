@@ -8,6 +8,38 @@
       skills, projects details and contact information." />
   <title>Zidni Ridwan Nulmuarif - Portfolio</title>
 
+  <!--==================== STRUCTURED DATA ====================-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Zidni Ridwan Nulmuarif",
+    "alternateName": "zidniryi",
+    "url": "https://zidniryi.space",
+    "image": "https://zidniryi.space/assets/img/PwaImages/ios/512.png",
+    "jobTitle": "Software Developer",
+    "email": "mailto:zidniryi123@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "ID"
+    },
+    "sameAs": [
+      "https://github.com/zidniryi",
+      "https://www.linkedin.com/in/zidni-ridwan-nulmuarif/",
+      "https://konsepkoding.com/"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Zidni Ridwan Nulmuarif - Portfolio",
+    "url": "https://zidniryi.space",
+    "author": { "@type": "Person", "name": "Zidni Ridwan Nulmuarif" }
+  }
+  </script>
+
   <!--==================== OPEN GRAPH META TAGS ===================== -->
   <meta property="og:title" content="Zidni Ridwan Nulmuarif - Portfolio - Software Developer" />
   <meta property="og:image" content="/assets/img/PwaImages/ios/512.png" />
@@ -92,6 +124,12 @@
           <li class="nav__item">
             <a href="#portfolio" class="nav__link noSelect">
               <i class="uil uil-scenery nav__icon"></i> Portfolio
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#open-source" class="nav__link noSelect">
+              <i class="uil uil-github-alt nav__icon"></i> Open Source
             </a>
           </li>
 
@@ -855,6 +893,144 @@
     </div>
   </section>
 
+  <!--==================== OPEN SOURCE ====================-->
+
+  <style>
+    .opensource__container {
+      max-width: 968px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+    }
+    .opensource__card {
+      background-color: var(--container-color);
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid hsl(var(--hue-color) 8% 30% / 20%);
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .opensource__card:hover { transform: translateY(-0.4rem); }
+    .opensource__img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+    .opensource__img-placeholder {
+      width: 100%; aspect-ratio: 16/10;
+      display: flex; align-items: center; justify-content: center;
+      background: hsl(var(--hue-color) 69% 61% / 10%);
+    }
+    .opensource__img-placeholder i { font-size: 2.75rem; color: var(--first-color); }
+    .opensource__data { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+    .opensource__badge {
+      align-self: flex-start;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--first-color);
+      background: hsl(var(--hue-color) 69% 61% / 15%);
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .opensource__title { font-size: var(--h3-font-size); margin: 0; }
+    .opensource__description { margin: 0 0 0.5rem; color: var(--text-color); font-size: var(--small-font-size); }
+    .opensource__links { display: flex; gap: 1rem; margin-top: auto; }
+    .opensource__links a {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: var(--small-font-size); font-weight: var(--font-medium); color: var(--title-color);
+    }
+    .opensource__links a:hover { color: var(--first-color); }
+  </style>
+
+  <section class="opensource section" id="open-source">
+    <h2 class="section__title">My Open Source Projects</h2>
+    <span class="section__subtitle">Free, self-hosted, no strings attached</span>
+
+    <div class="opensource__container">
+      <div class="opensource__card">
+        <img src="/assets/img/opensource/unbagrnd.png" alt="unbagrnd app screenshot" class="opensource__img" />
+        <div class="opensource__data">
+          <span class="opensource__badge">MIT &middot; Desktop</span>
+          <h3 class="opensource__title">unbagrnd</h3>
+          <p class="opensource__description">
+            Removes the background from images entirely on-device using AI —
+            no cloud API, no account, no telemetry. Free, cross-platform
+            (macOS, Windows, Linux) and open source.
+          </p>
+          <div class="opensource__links">
+            <a href="https://zidniryi.space/unbagrnd" target="_blank">
+              <i class="uil uil-globe"></i> Website
+            </a>
+            <a href="https://github.com/zidniryi/unbagrnd" target="_blank">
+              <i class="uil uil-github-alt"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="opensource__card">
+        <img src="/assets/img/opensource/copybrain.webp" alt="CopyBrain app screenshot" class="opensource__img" />
+        <div class="opensource__data">
+          <span class="opensource__badge">Open Source &middot; Desktop</span>
+          <h3 class="opensource__title">CopyBrain</h3>
+          <p class="opensource__description">
+            Your second brain for everything you copy. A clipboard manager
+            that automatically archives text, code, and links — offline and
+            locally encrypted, for Windows, macOS, and Linux.
+          </p>
+          <div class="opensource__links">
+            <a href="https://www.copybrainapp.xyz/" target="_blank">
+              <i class="uil uil-globe"></i> Website
+            </a>
+            <a href="https://github.com/copybrainapp/copybrainapp" target="_blank">
+              <i class="uil uil-github-alt"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="opensource__card">
+        <div class="opensource__img-placeholder"><i class="uil uil-compass"></i></div>
+        <div class="opensource__data">
+          <span class="opensource__badge">MIT &middot; CLI</span>
+          <h3 class="opensource__title">Navix</h3>
+          <p class="opensource__description">
+            A blazing-fast, cross-platform code navigation and indexing tool —
+            offline symbol lookup, file jumping, and project-wide search
+            without a bloated IDE.
+          </p>
+          <div class="opensource__links">
+            <a href="/navix.html" target="_blank">
+              <i class="uil uil-globe"></i> Docs
+            </a>
+            <a href="https://github.com/zidniryi/navix" target="_blank">
+              <i class="uil uil-github-alt"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="opensource__card">
+        <div class="opensource__img-placeholder"><i class="uil uil-search"></i></div>
+        <div class="opensource__data">
+          <span class="opensource__badge">MIT &middot; CLI</span>
+          <h3 class="opensource__title">yougoldberg</h3>
+          <p class="opensource__description">
+            An OSINT username-discovery tool that checks 100+ platforms for a
+            given username and reports back every profile it finds — for
+            educational and legitimate research use.
+          </p>
+          <div class="opensource__links">
+            <a href="https://github.com/zidniryi/yougoldberg" target="_blank">
+              <i class="uil uil-github-alt"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="project section">
     <div class="project__bg">

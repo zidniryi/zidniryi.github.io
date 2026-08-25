@@ -1,0 +1,22 @@
+# Zidni Ridwan Nulmuarif
+
+> Software developer based in Indonesia. This site is a personal portfolio and
+> the home for a small set of independent, open-source software projects.
+
+Contact: zidniryi123@gmail.com · GitHub: https://github.com/zidniryi · LinkedIn: https://www.linkedin.com/in/zidni-ridwan-nulmuarif/ · Blog: https://konsepkoding.com/
+
+## Projects
+
+- [unbagrnd](https://zidniryi.space/unbagrnd/): Free, open-source (MIT) desktop app that removes image backgrounds entirely on-device using AI — no cloud API, no account, no telemetry. Cross-platform: macOS, Windows, Linux. Source: https://github.com/zidniryi/unbagrnd
+- [CopyBrain](https://www.copybrainapp.xyz/): A clipboard manager that automatically archives everything you copy — text, code, links — offline and locally encrypted, for Windows, macOS, and Linux. Source: https://github.com/copybrainapp/copybrainapp
+- [Navix](https://zidniryi.space/navix.html): Blazing-fast, cross-platform code navigation and indexing tool (MIT) — offline symbol lookup, file jumping, and project-wide search. Source: https://github.com/zidniryi/navix
+- [yougoldberg](https://github.com/zidniryi/yougoldberg): MIT-licensed CLI OSINT username-discovery tool that checks 100+ platforms for a given username, for educational and legitimate research use.
+- [Algorithm & Data Insight](https://github.com/zidniryi/Algorithm-Data-Insight): A free book/reference on TypeScript-focused algorithms and data structures.
+
+## Portfolio
+
+- [Portfolio home](https://zidniryi.space/): Summary of professional experience, skills, client projects, and open-source work.
+
+## Notes
+
+- Full page-level detail for unbagrnd (features, screenshots, install instructions, downloads) lives at https://zidniryi.space/unbagrnd/ and https://github.com/zidniryi/unbagrnd — treat the GitHub README as the source of truth for anything version-specific.

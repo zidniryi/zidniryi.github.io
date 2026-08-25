@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>unbagrnd — remove image backgrounds, on-device</title>
+<meta name="description" content="unbagrnd removes the background from images entirely on your device using on-device AI. No cloud API, no account, no telemetry. Free, open source, cross-platform." />
+
+<meta property="og:title" content="unbagrnd — remove image backgrounds, on-device" />
+<meta property="og:description" content="AI-powered background removal that runs 100% on your device. Free and open source, for macOS, Windows, and Linux." />
+<meta property="og:image" content="https://zidniryi.space/unbagrnd/assets/screenshot-landing.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zidniryi.space/unbagrnd" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="unbagrnd — remove image backgrounds, on-device" />
+<meta name="twitter:description" content="AI-powered background removal that runs 100% on your device. Free and open source." />
+<meta name="twitter:image" content="https://zidniryi.space/unbagrnd/assets/screenshot-landing.png" />
+
+<link rel="icon" href="assets/logo.png" />
+<link rel="canonical" href="https://zidniryi.space/unbagrnd/" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "unbagrnd",
+  "url": "https://zidniryi.space/unbagrnd/",
+  "description": "unbagrnd removes the background from images entirely on-device using AI. No cloud API, no account, no telemetry. Free, open source (MIT), and cross-platform.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "macOS, Windows, Linux",
+  "softwareVersion": "0.1.0",
+  "license": "https://github.com/zidniryi/unbagrnd/blob/main/LICENSE",
+  "downloadUrl": "https://github.com/zidniryi/unbagrnd/releases",
+  "codeRepository": "https://github.com/zidniryi/unbagrnd",
+  "image": "https://zidniryi.space/unbagrnd/assets/screenshot-landing.png",
+  "screenshot": [
+    "https://zidniryi.space/unbagrnd/assets/screenshot-landing.png",
+    "https://zidniryi.space/unbagrnd/assets/screenshot-single.png",
+    "https://zidniryi.space/unbagrnd/assets/screenshot-batch.png",
+    "https://zidniryi.space/unbagrnd/assets/screenshot-settings.png"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Zidni Ridwan Nulmuarif",
+    "url": "https://zidniryi.space"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #06120c;
+    --bg-soft: #0a1a12;
+    --panel: #0e2117;
+    --panel-border: #163324;
+    --text: #eafff3;
+    --text-dim: #9fc7ae;
+    --text-dimmer: #6f9581;
+    --green: #35e08a;
+    --green-strong: #17c96f;
+    --green-soft: rgba(53, 224, 138, 0.12);
+    --amber: #f2b84b;
+    --radius: 16px;
+    --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(53, 224, 138, 0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(53, 224, 138, 0.08), transparent 60%);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(14px);
+    background: rgba(6, 18, 12, 0.72);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .nav__row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; max-width: 1120px; margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.05rem; text-decoration: none; }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  .brand .u { color: var(--green); font-size: 1.3em; }
+  .nav__links { display: flex; align-items: center; gap: 28px; }
+  .nav__links a { text-decoration: none; color: var(--text-dim); font-size: 0.92rem; font-weight: 500; transition: color 0.15s; }
+  .nav__links a:hover { color: var(--text); }
+  .nav__gh { display: inline-flex; align-items: center; gap: 6px; }
+  .nav__gh svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .nav__cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #06120c !important; font-weight: 700;
+    padding: 9px 16px; border-radius: 999px; text-decoration: none; font-size: 0.88rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .nav__cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(53, 224, 138, 0.35); }
+  @media (max-width: 720px) { .nav__links a:not(.nav__cta) { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 96px 0 64px; text-align: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-soft); border: 1px solid rgba(53, 224, 138, 0.35);
+    color: var(--green); font-size: 0.82rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
+  }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 800; letter-spacing: -0.02em;
+    margin: 0 0 20px; line-height: 1.08;
+  }
+  .hero h1 .accent { color: var(--green); }
+  .hero p.lead {
+    max-width: 620px; margin: 0 auto 36px; color: var(--text-dim); font-size: 1.15rem;
+  }
+  .hero__ctas { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 64px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 24px; border-radius: 12px; font-weight: 700; font-size: 0.96rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
+    font-family: var(--font);
+  }
+  .btn-primary { background: var(--green); color: #06120c; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(53, 224, 138, 0.35); }
+  .btn-ghost { background: transparent; color: var(--text); border-color: var(--panel-border); }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .hero__shot {
+    max-width: 900px; margin: 0 auto; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--panel-border); box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(53,224,138,0.05);
+  }
+  .hero__shot img { width: 100%; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; }
+  .section__eyebrow { color: var(--green); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; text-align: center; }
+  .section__title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 800; text-align: center; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .section__lead { text-align: center; color: var(--text-dim); max-width: 560px; margin: 0 auto 56px; }
+
+  /* ---------- Features ---------- */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 860px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+  .feature {
+    background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
+    padding: 26px; transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature:hover { border-color: rgba(53, 224, 138, 0.4); transform: translateY(-3px); }
+  .feature__icon {
+    width: 42px; height: 42px; border-radius: 11px; background: var(--green-soft);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--green);
+  }
+  .feature__icon svg { width: 22px; height: 22px; }
+  .feature h3 { font-size: 1.05rem; margin: 0 0 8px; }
+  .feature p { margin: 0; color: var(--text-dim); font-size: 0.92rem; }
+
+  /* ---------- Screenshots ---------- */
+  .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .shots { grid-template-columns: repeat(2, 1fr); } }
+  .shot { border-radius: 12px; overflow: hidden; border: 1px solid var(--panel-border); cursor: zoom-in; }
+  .shot img { transition: transform 0.3s; }
+  .shot:hover img { transform: scale(1.04); }
+
+  /* ---------- How it works ---------- */
+  .how { background: var(--bg-soft); border-top: 1px solid var(--panel-border); border-bottom: 1px solid var(--panel-border); }
+  .how__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: step; }
+  @media (max-width: 860px) { .how__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .how__grid { grid-template-columns: 1fr; } }
+  .step { position: relative; padding-top: 44px; }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; top: 0; left: 0; width: 34px; height: 34px; border-radius: 10px;
+    background: var(--green-soft); color: var(--green); border: 1px solid rgba(53,224,138,0.35);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: var(--mono); font-size: 0.9rem;
+  }
+  .step h4 { margin: 0 0 6px; font-size: 0.98rem; }
+  .step p { margin: 0; color: var(--text-dim); font-size: 0.88rem; }
+
+  /* ---------- Download ---------- */
+  .platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .platforms { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
+  .platform {
+    background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
+    padding: 26px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .platform--featured { border-color: rgba(53, 224, 138, 0.45); box-shadow: 0 0 0 1px rgba(53,224,138,0.12), 0 20px 60px -30px rgba(53,224,138,0.3); }
+  .platform__head { display: flex; align-items: center; gap: 12px; }
+  .platform__icon {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--green-soft);
+    display: flex; align-items: center; justify-content: center; color: var(--green); flex-shrink: 0;
+  }
+  .platform__icon svg { width: 24px; height: 24px; }
+  .platform__name { font-weight: 700; font-size: 1.08rem; }
+  .platform__meta { color: var(--text-dimmer); font-size: 0.82rem; font-family: var(--mono); }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.76rem; color: var(--text-dim); border: 1px solid var(--panel-border);
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .chip svg { width: 11px; height: 11px; color: var(--green); }
+  .dl-btn {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    width: 100%; text-align: left; border-radius: 10px; padding: 12px 14px;
+    text-decoration: none; font-size: 0.86rem; border: 1px solid var(--panel-border);
+    background: transparent; color: var(--text); cursor: pointer; font-family: var(--font);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .dl-btn:hover { border-color: var(--green); }
+  .dl-btn strong { font-weight: 700; display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dl-btn small { color: var(--text-dimmer); font-family: var(--mono); font-size: 0.74rem; white-space: nowrap; flex-shrink: 0; }
+  .dl-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .dl-btn--primary { background: var(--green); border-color: var(--green); color: #06120c; }
+  .dl-btn--primary small { color: rgba(6,18,12,0.65); }
+  .dl-btn--primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(53,224,138,0.3); }
+
+  .platform__note {
+    display: flex; gap: 10px; font-size: 0.8rem; color: var(--text-dim);
+    background: rgba(242, 184, 75, 0.08); border: 1px solid rgba(242, 184, 75, 0.25);
+    border-radius: 10px; padding: 12px 14px;
+  }
+  .platform__note svg { width: 16px; height: 16px; color: var(--amber); flex-shrink: 0; margin-top: 1px; }
+  .platform__note code { font-family: var(--mono); background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 4px; font-size: 0.78rem; }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(3, 10, 6, 0.8); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--panel-border); border-radius: 18px;
+    max-width: 620px; width: 100%; padding: 28px; position: relative;
+    transform: translateY(12px); transition: transform 0.2s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal__close {
+    position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--text-dimmer);
+    cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px;
+  }
+  .modal__close:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+  .modal h3 { margin: 0 0 10px; font-size: 1.3rem; padding-right: 30px; }
+  .modal p.desc { color: var(--text-dim); font-size: 0.92rem; margin: 0 0 20px; }
+  .modal__video { position: relative; padding-top: 56.25%; border-radius: 12px; overflow: hidden; margin-bottom: 18px; background: #000; }
+  .modal__video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .modal__tip {
+    display: flex; gap: 10px; font-size: 0.82rem; color: var(--text-dim); margin-bottom: 20px;
+  }
+  .modal__tip svg { width: 15px; height: 15px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+  .modal .dl-btn--primary { justify-content: center; }
+
+  /* ---------- OSS callout ---------- */
+  .oss {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius); padding: 32px;
+  }
+  .oss__left h3 { margin: 0 0 8px; font-size: 1.2rem; }
+  .oss__left p { margin: 0; color: var(--text-dim); font-size: 0.92rem; max-width: 480px; }
+  .stat-row { display: flex; gap: 28px; }
+  .stat { text-align: center; }
+  .stat b { display: block; font-size: 1.4rem; color: var(--green); font-family: var(--mono); }
+  .stat span { font-size: 0.76rem; color: var(--text-dimmer); }
+
+  /* ---------- Footer ---------- */
+  footer { border-top: 1px solid var(--panel-border); padding: 40px 0; }
+  .footer__row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .footer__brand img { width: 26px; height: 26px; border-radius: 7px; }
+  footer .footer__links { display: flex; gap: 22px; font-size: 0.86rem; }
+  footer .footer__links a { text-decoration: none; color: var(--text-dim); }
+  footer .footer__links a:hover { color: var(--green); }
+  .footer__note { color: var(--text-dimmer); font-size: 0.8rem; margin-top: 20px; text-align: center; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__row">
+    <a class="brand" href="#top">
+      <img src="assets/logo.png" alt="" />
+      <span><span class="u">u</span>nbagrnd</span>
+    </a>
+    <div class="nav__links">
+      <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#download">Download</a>
+      <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener" class="nav__gh">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.53-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.43-2.7 5.4-5.27 5.68.42.36.78 1.07.78 2.17v3.22c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        GitHub
+      </a>
+      <a class="nav__cta" href="#download">Download</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="badge"><span class="dot"></span> v0.1.0 · free &amp; open source</span>
+    <h1>Remove image backgrounds<br />with <span class="accent">on-device AI.</span></h1>
+    <p class="lead">
+      unbagrnd erases the background from any photo — instantly, privately, and
+      entirely on your machine. No cloud API, no account, no upload, ever.
+    </p>
+    <div class="hero__ctas">
+      <a href="#download" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Download for free
+      </a>
+      <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.53-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.43-2.7 5.4-5.27 5.68.42.36.78 1.07.78 2.17v3.22c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+    <div class="hero__shot">
+      <img src="assets/screenshot-single.png" alt="unbagrnd showing a before/after background removal result" />
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <p class="section__eyebrow">Why unbagrnd</p>
+    <h2 class="section__title">Built to stay out of the cloud</h2>
+    <p class="section__lead">Every feature below is designed around one rule: your images never leave your device.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v1a3 3 0 0 0-2 2.83V17a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-7.17A3 3 0 0 0 16 7V6a4 4 0 0 0-4-4Z"/><path d="M9 12h6M9 16h4"/></svg></div>
+        <h3>On-device AI</h3>
+        <p>Background removal runs through a real neural network via ONNX Runtime, inferred locally — no image, filename, or metadata is ever sent anywhere.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg></div>
+        <h3>100% free &amp; open source</h3>
+        <p>MIT-licensed, built on a free, open-source stack — no API keys, no paid tiers, no usage limits.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3>Pick your AI model</h3>
+        <p>Choose from several background-removal models in Settings, trading off speed vs. accuracy — from a lightweight 43&nbsp;MB default up.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><path d="M12 2v10"/></svg></div>
+        <h3>Offline after setup</h3>
+        <p>The only network request unbagrnd ever makes is the one-time model download. No analytics, no update checks, no telemetry.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <h3>Single &amp; batch</h3>
+        <p>Process one image, or drop an entire folder, from the same window — with live before/after previews as each file finishes.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+        <h3>Cross-platform</h3>
+        <p>Native installers for macOS (Apple Silicon), Windows, and Linux — one small app, no Electron.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <p class="section__eyebrow">A look inside</p>
+    <h2 class="section__title">Simple enough for one photo, fast enough for a folder</h2>
+    <p class="section__lead">Single-image mode, batch mode, and the model picker in Settings.</p>
+    <div class="shots">
+      <div class="shot"><img src="assets/screenshot-landing.png" alt="unbagrnd main window" /></div>
+      <div class="shot"><img src="assets/screenshot-single.png" alt="unbagrnd single-image result" /></div>
+      <div class="shot"><img src="assets/screenshot-batch.png" alt="unbagrnd batch results" /></div>
+      <div class="shot"><img src="assets/screenshot-settings.png" alt="unbagrnd settings and model picker" /></div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <p class="section__eyebrow">Under the hood</p>
+    <h2 class="section__title">How it works</h2>
+    <p class="section__lead">
+      unbagrnd runs <a href="https://github.com/danielgatis/rembg" target="_blank" rel="noopener" style="color:var(--green)">IS-Net "general use"</a>
+      as an ONNX model via the Rust <code style="font-family:var(--mono)">ort</code> bindings for ONNX Runtime —
+      the same model family used by the popular <code style="font-family:var(--mono)">rembg</code> tool.
+    </p>
+    <div class="how__grid">
+      <div class="step"><h4>Decode &amp; resize</h4><p>Your image is loaded and resized to the model's input size, fully in memory.</p></div>
+      <div class="step"><h4>Run the model</h4><p>The neural network predicts a foreground mask, entirely on your CPU.</p></div>
+      <div class="step"><h4>Build the alpha</h4><p>The mask becomes an alpha channel, composited back onto the original pixels.</p></div>
+      <div class="step"><h4>Save as PNG</h4><p>The result is written straight to disk — the frontend never touches the network.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <p class="section__eyebrow">Get started</p>
+    <h2 class="section__title">Download unbagrnd</h2>
+    <p class="section__lead">Pick your platform. Every build is free, and the source is right there on GitHub.</p>
+
+    <div class="platforms">
+      <!-- Windows -->
+      <div class="platform">
+        <div class="platform__head">
+          <div class="platform__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10 4.4v7.1H3V5.5Zm0 13 7 1.1v-7H3v5.9ZM11 4.3 21 3v8.4H11V4.3Zm0 8.6h10v8.4l-10-1.4V12.9Z"/></svg>
+          </div>
+          <div>
+            <div class="platform__name">Windows</div>
+            <div class="platform__meta">v0.1.0 · 10 / 11 · x64</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Windows 10</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Windows 11</span>
+        </div>
+        <button class="dl-btn dl-btn--primary" data-modal="windows-modal">
+          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download for Windows</strong>
+          <small>setup.exe · 6.6 MB</small>
+        </button>
+        <a class="dl-btn" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_x64_en-US.msi">
+          <strong>MSI installer</strong>
+          <small>.msi · 18.4 MB</small>
+        </a>
+        <div class="platform__note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span>Not code-signed yet, so SmartScreen may flag it. Click "More info" → "Run anyway" — see the video for a walkthrough.</span>
+        </div>
+      </div>
+
+      <!-- macOS -->
+      <div class="platform platform--featured">
+        <div class="platform__head">
+          <div class="platform__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.36 1.43c.09 1.02-.29 2-.9 2.73-.63.75-1.66 1.33-2.67 1.25-.11-1 .35-2.03.95-2.71.68-.77 1.85-1.34 2.62-1.27ZM19.9 17.55c-.32.75-.7 1.44-1.15 2.08-.6.87-1.1 1.47-1.48 1.8-.6.55-1.24.83-1.93.85-.5.01-1.09-.14-1.78-.44-.7-.3-1.34-.44-1.93-.44-.62 0-1.28.14-1.99.44-.71.3-1.28.46-1.72.47-.66.03-1.32-.26-1.97-.87-.42-.36-.94-.98-1.57-1.87-.68-.95-1.24-2.05-1.68-3.31-.47-1.36-.71-2.68-.71-3.96 0-1.47.32-2.74.96-3.8a5.6 5.6 0 0 1 1.99-2.02 5.35 5.35 0 0 1 2.69-.76c.56 0 1.3.17 2.23.52.92.35 1.51.52 1.77.52.19 0 .85-.2 1.96-.6 1.05-.37 1.94-.53 2.66-.47 1.97.16 3.45.94 4.42 2.34a5.13 5.13 0 0 0-2.71 4.65c.02 1.51.56 2.77 1.62 3.77.48.46 1.02.81 1.61 1.06-.13.38-.27.75-.42 1.1Z"/></svg>
+          </div>
+          <div>
+            <div class="platform__name">macOS</div>
+            <div class="platform__meta">v0.1.0 · Apple Silicon</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Apple Silicon</span>
+        </div>
+        <button class="dl-btn dl-btn--primary" data-modal="mac-modal">
+          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download for macOS</strong>
+          <small>.dmg · 11.3 MB</small>
+        </button>
+        <div class="platform__note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span>Not notarized yet — macOS will say it's "damaged." Run <code>xattr -cr /Applications/unbagrnd.app</code> once — see the video for the full fix.</span>
+        </div>
+      </div>
+
+      <!-- Linux -->
+      <div class="platform">
+        <div class="platform__head">
+          <div class="platform__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.5 1.5c-.6 0-1.2.5-1.6 1.4-.4.8-.6 1.9-.6 3 0 .9.1 1.7.4 2.5-.9.7-1.7 1.6-2.3 2.7-.8 1.4-1.2 3-1.2 4.6 0 1 .2 1.9.6 2.7-.4.3-.7.7-.7 1.2 0 .9.9 1.6 2.5 2.1 1.5.5 3.4.8 5.4.8s3.9-.3 5.4-.8c1.6-.5 2.5-1.2 2.5-2.1 0-.5-.3-.9-.7-1.2.4-.8.6-1.7.6-2.7 0-1.6-.4-3.2-1.2-4.6-.6-1.1-1.4-2-2.3-2.7.3-.8.4-1.6.4-2.5 0-1.1-.2-2.2-.6-3-.4-.9-1-1.4-1.6-1.4-.5 0-1 .3-1.4.9-.3-.1-.7-.1-1-.1s-.7 0-1 .1c-.4-.6-.9-.9-1.4-.9Z"/></svg>
+          </div>
+          <div>
+            <div class="platform__name">Linux</div>
+            <div class="platform__meta">v0.1.0 · x86_64</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>AppImage</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>.deb</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>.rpm</span>
+        </div>
+        <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_amd64.AppImage">
+          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>AppImage</strong>
+          <small>81.5 MB</small>
+        </a>
+        <a class="dl-btn" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_amd64.deb">
+          <strong>.deb</strong>
+          <small>Debian/Ubuntu · 11.5 MB</small>
+        </a>
+        <a class="dl-btn" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd-0.1.0-1.x86_64.rpm">
+          <strong>.rpm</strong>
+          <small>Fedora/RHEL · 11.5 MB</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="oss">
+      <div class="oss__left">
+        <h3>Free, open source, forever.</h3>
+        <p>unbagrnd is MIT-licensed. Read the code, file an issue, or send a pull request — it's all on GitHub.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <div class="stat-row">
+          <div class="stat"><b>MIT</b><span>license</span></div>
+          <div class="stat"><b>3</b><span>platforms</span></div>
+          <div class="stat"><b>0</b><span>telemetry</span></div>
+        </div>
+        <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.53-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.43-2.7 5.4-5.27 5.68.42.36.78 1.07.78 2.17v3.22c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+          Star on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer__row">
+      <a class="footer__brand" href="#top">
+        <img src="assets/logo.png" alt="" />
+        unbagrnd
+      </a>
+      <div class="footer__links">
+        <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/zidniryi/unbagrnd/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/zidniryi/unbagrnd/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+        <a href="https://zidniryi.space" target="_blank" rel="noopener">Zidni Ryi</a>
+      </div>
+    </div>
+    <p class="footer__note">Built by Zidni Ridwan Nulmuarif. Not affiliated with Apple, Microsoft, or any Linux distribution.</p>
+  </div>
+</footer>
+
+<!-- Windows modal -->
+<div class="modal-overlay" id="windows-modal">
+  <div class="modal">
+    <button class="modal__close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>Seeing a Windows warning?</h3>
+    <p class="desc">unbagrnd isn't code-signed yet, so Windows SmartScreen may flag the installer. Here's a quick walkthrough on how to continue safely.</p>
+    <div class="modal__video">
+      <iframe src="https://www.youtube.com/embed/sppI2ObCctY" title="Fix Windows SmartScreen warning" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="modal__tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span>On the SmartScreen popup, click "More info" then "Run anyway" to install.</span>
+    </div>
+    <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_x64-setup.exe">
+      <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Continue download — unbagrnd_0.1.0_x64-setup.exe</strong>
+    </a>
+  </div>
+</div>
+
+<!-- macOS modal -->
+<div class="modal-overlay" id="mac-modal">
+  <div class="modal">
+    <button class="modal__close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>Seeing "unbagrnd is damaged"?</h3>
+    <p class="desc">unbagrnd isn't notarized by an Apple Developer account yet, so Gatekeeper blocks it on first launch and shows this (misleading) message. Here's how to open it anyway.</p>
+    <div class="modal__video">
+      <iframe src="https://www.youtube.com/embed/ih5HidIpgzw" title="Fix macOS damaged app warning" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="modal__tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span>After moving unbagrnd to Applications, run this once in Terminal: <code style="font-family:var(--mono); background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">xattr -cr /Applications/unbagrnd.app</code></span>
+    </div>
+    <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_aarch64.dmg">
+      <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Continue download — unbagrnd_0.1.0_aarch64.dmg</strong>
+    </a>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-modal]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var modal = document.getElementById(btn.getAttribute('data-modal'));
+      if (modal) modal.classList.add('open');
+    });
+  });
+  document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) overlay.classList.remove('open');
+    });
+    overlay.querySelector('[data-close]').addEventListener('click', function () {
+      overlay.classList.remove('open');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(function (o) { o.classList.remove('open'); });
+    }
+  });
+</script>
+</body>
+</html>
