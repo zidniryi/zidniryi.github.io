@@ -193,3 +193,33 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-theme", getCurrentTheme());
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
+
+/*=============== IMAGE LIGHTBOX ===============*/
+const imgLightbox = document.getElementById("img-lightbox");
+const imgLightboxImg = document.getElementById("img-lightbox-img");
+const imgLightboxClose = document.getElementById("img-lightbox-close");
+
+if (imgLightbox && imgLightboxImg && imgLightboxClose) {
+  const openLightbox = (img) => {
+    imgLightboxImg.src = img.getAttribute("src");
+    imgLightboxImg.alt = img.getAttribute("alt") || "";
+    imgLightbox.classList.add("open");
+  };
+  const closeLightbox = () => {
+    imgLightbox.classList.remove("open");
+  };
+
+  // Delegated so it also catches Swiper's cloned loop-mode slides
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".opensource__img, .portfolio__img");
+    if (img) openLightbox(img);
+  });
+
+  imgLightboxClose.addEventListener("click", closeLightbox);
+  imgLightbox.addEventListener("click", (e) => {
+    if (e.target === imgLightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+}
