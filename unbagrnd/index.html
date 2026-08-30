@@ -335,6 +335,7 @@
     <div class="nav__links">
       <a href="#features">Features</a>
       <a href="#screenshots">Screenshots</a>
+      <a href="#editing">Editing</a>
       <a href="#videos">Videos</a>
       <a href="#download">Download</a>
       <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener" class="nav__gh">
@@ -348,7 +349,7 @@
 
 <header class="hero" id="top">
   <div class="wrap">
-    <span class="badge"><span class="dot"></span> v0.1.0 · free &amp; open source</span>
+    <span class="badge"><span class="dot"></span> <span data-gh-version>v0.1.0</span> · free &amp; open source</span>
     <h1>Remove image backgrounds<br />with <span class="accent">on-device AI.</span></h1>
     <p class="lead">
       unbagrnd erases the background from any photo — instantly, privately, and
@@ -429,6 +430,22 @@
   </div>
 </section>
 
+<section id="editing">
+  <div class="wrap">
+    <p class="section__eyebrow">Beyond the cutout</p>
+    <h2 class="section__title">Refine the edges, then style the background</h2>
+    <p class="section__lead">Two on-device editors for the spots the model gets almost right — no AI, no network, just the result you already have.</p>
+    <div class="shots">
+      <div class="shot"><img src="assets/screenshot-refine.png" alt="unbagrnd refine editor - brush erase and restore with undo/redo" /></div>
+      <div class="shot"><img src="assets/screenshot-background.png" alt="unbagrnd background editor - solid color fill and drop shadow" /></div>
+    </div>
+    <div class="how__grid" style="margin-top: 32px; grid-template-columns: repeat(2, 1fr); max-width: 620px;">
+      <div class="step"><h4>Refine</h4><p>Brush over parts of the subject to erase or restore, with full undo/redo history.</p></div>
+      <div class="step"><h4>Background &amp; shadow</h4><p>Fill in a solid color - basic, pastel, neutral, or lifted straight from the photo - and add a soft drop shadow computed on-device, with angle and opacity presets.</p></div>
+    </div>
+  </div>
+</section>
+
 <section id="videos">
   <div class="wrap">
     <p class="section__eyebrow">See it in action</p>
@@ -492,7 +509,7 @@
           </div>
           <div>
             <div class="platform__name">Windows</div>
-            <div class="platform__meta">v0.1.0 · 10 / 11 · x64</div>
+            <div class="platform__meta"><span data-gh-version>v0.1.0</span> · 10 / 11 · x64</div>
           </div>
         </div>
         <div class="badges">
@@ -501,11 +518,11 @@
         </div>
         <button class="dl-btn dl-btn--primary" data-modal="windows-modal">
           <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download for Windows</strong>
-          <small>setup.exe · 6.6 MB</small>
+          <small>setup.exe · <span data-gh-size="win-setup">6.6 MB</span></small>
         </button>
-        <a class="dl-btn" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_x64_en-US.msi">
+        <a class="dl-btn" data-gh-asset="win-msi" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_x64_en-US.msi">
           <strong>MSI installer</strong>
-          <small>.msi · 18.4 MB</small>
+          <small>.msi · <span data-gh-size="win-msi">18.4 MB</span></small>
         </a>
         <div class="platform__note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
@@ -521,7 +538,7 @@
           </div>
           <div>
             <div class="platform__name">macOS</div>
-            <div class="platform__meta">v0.1.0 · Apple Silicon</div>
+            <div class="platform__meta"><span data-gh-version>v0.1.0</span> · Apple Silicon</div>
           </div>
         </div>
         <div class="badges">
@@ -529,7 +546,7 @@
         </div>
         <button class="dl-btn dl-btn--primary" data-modal="mac-modal">
           <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download for macOS</strong>
-          <small>.dmg · 11.3 MB</small>
+          <small>.dmg · <span data-gh-size="mac-dmg">11.3 MB</span></small>
         </button>
         <div class="platform__note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
@@ -545,7 +562,7 @@
           </div>
           <div>
             <div class="platform__name">Linux</div>
-            <div class="platform__meta">v0.1.0 · x86_64</div>
+            <div class="platform__meta"><span data-gh-version>v0.1.0</span> · x86_64</div>
           </div>
         </div>
         <div class="badges">
@@ -553,17 +570,17 @@
           <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>.deb</span>
           <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>.rpm</span>
         </div>
-        <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_amd64.AppImage">
+        <a class="dl-btn dl-btn--primary" data-gh-asset="linux-appimage" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_amd64.AppImage">
           <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>AppImage</strong>
-          <small>81.5 MB</small>
+          <small><span data-gh-size="linux-appimage">81.5 MB</span></small>
         </a>
-        <a class="dl-btn" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_amd64.deb">
+        <a class="dl-btn" data-gh-asset="linux-deb" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_amd64.deb">
           <strong>.deb</strong>
-          <small>Debian/Ubuntu · 11.5 MB</small>
+          <small>Debian/Ubuntu · <span data-gh-size="linux-deb">11.5 MB</span></small>
         </a>
-        <a class="dl-btn" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd-0.1.0-1.x86_64.rpm">
+        <a class="dl-btn" data-gh-asset="linux-rpm" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd-0.1.0-1.x86_64.rpm">
           <strong>.rpm</strong>
-          <small>Fedora/RHEL · 11.5 MB</small>
+          <small>Fedora/RHEL · <span data-gh-size="linux-rpm">11.5 MB</span></small>
         </a>
       </div>
     </div>
@@ -623,8 +640,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
       <span>On the SmartScreen popup, click "More info" then "Run anyway" to install.</span>
     </div>
-    <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_x64-setup.exe">
-      <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Continue download — unbagrnd_0.1.0_x64-setup.exe</strong>
+    <a class="dl-btn dl-btn--primary" data-gh-asset="win-setup" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_x64-setup.exe">
+      <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Continue download — <span data-gh-filename="win-setup">unbagrnd_0.1.0_x64-setup.exe</span></strong>
     </a>
   </div>
 </div>
@@ -642,8 +659,8 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
       <span>After moving unbagrnd to Applications, run this once in Terminal: <code style="font-family:var(--mono); background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">xattr -cr /Applications/unbagrnd.app</code></span>
     </div>
-    <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_aarch64.dmg">
-      <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Continue download — unbagrnd_0.1.0_aarch64.dmg</strong>
+    <a class="dl-btn dl-btn--primary" data-gh-asset="mac-dmg" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.1.0/unbagrnd_0.1.0_aarch64.dmg">
+      <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Continue download — <span data-gh-filename="mac-dmg">unbagrnd_0.1.0_aarch64.dmg</span></strong>
     </a>
   </div>
 </div>
@@ -683,6 +700,65 @@
       document.querySelectorAll('.modal-overlay.open').forEach(function (o) { o.classList.remove('open'); });
     }
   });
+</script>
+
+<!--
+  Pulls the version number and per-platform download links/sizes straight
+  from the latest GitHub release, so this page never needs a manual edit
+  after a new tag ships. The hardcoded v0.1.0 values above are the fallback:
+  if the API call fails (offline, rate-limited — GitHub allows 60
+  unauthenticated requests/hour per IP), the page just keeps showing them.
+-->
+<script>
+  (function () {
+    var ASSET_MATCHERS = {
+      'win-setup': function (name) { return /-setup\.exe$/i.test(name); },
+      'win-msi': function (name) { return /\.msi$/i.test(name); },
+      'mac-dmg': function (name) { return /\.dmg$/i.test(name); },
+      'linux-appimage': function (name) { return /\.appimage$/i.test(name); },
+      'linux-deb': function (name) { return /\.deb$/i.test(name); },
+      'linux-rpm': function (name) { return /\.rpm$/i.test(name); }
+    };
+
+    function formatSize(bytes) {
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    fetch('https://api.github.com/repos/zidniryi/unbagrnd/releases/latest', {
+      headers: { Accept: 'application/vnd.github+json' }
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('GitHub API returned ' + res.status);
+        return res.json();
+      })
+      .then(function (release) {
+        var version = release.tag_name;
+        if (!version) return;
+        var assets = release.assets || [];
+
+        document.querySelectorAll('[data-gh-version]').forEach(function (el) {
+          el.textContent = version;
+        });
+
+        Object.keys(ASSET_MATCHERS).forEach(function (key) {
+          var asset = assets.filter(function (a) { return ASSET_MATCHERS[key](a.name); })[0];
+          if (!asset) return;
+
+          document.querySelectorAll('[data-gh-asset="' + key + '"]').forEach(function (el) {
+            el.href = asset.browser_download_url;
+          });
+          document.querySelectorAll('[data-gh-size="' + key + '"]').forEach(function (el) {
+            el.textContent = formatSize(asset.size);
+          });
+          document.querySelectorAll('[data-gh-filename="' + key + '"]').forEach(function (el) {
+            el.textContent = asset.name;
+          });
+        });
+      })
+      .catch(function (err) {
+        console.warn('unbagrnd: could not load the latest GitHub release, showing the last-published values', err);
+      });
+  })();
 </script>
 </body>
 </html>
