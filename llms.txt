@@ -7,6 +7,7 @@ Contact: zidniryi123@gmail.com · GitHub: https://github.com/zidniryi · LinkedI
 
 ## Projects
 
+- [OpenNearby](https://zidniryi.space/opennearby/): Free, open-source (MIT) app that shares files between devices on the same LAN — no cloud upload, no account, no signaling server. Browser guests need nothing installed. Cross-platform: macOS, Windows, Linux, Android. Source: https://github.com/zidniryi/OpenNearby
 - [unbagrnd](https://zidniryi.space/unbagrnd/): Free, open-source (MIT) desktop app that removes image backgrounds entirely on-device using AI — no cloud API, no account, no telemetry. Cross-platform: macOS, Windows, Linux. Source: https://github.com/zidniryi/unbagrnd
 - [CopyBrain](https://www.copybrainapp.xyz/): A clipboard manager that automatically archives everything you copy — text, code, links — offline and locally encrypted, for Windows, macOS, and Linux. Source: https://github.com/copybrainapp/copybrainapp
 - [Navix](https://zidniryi.space/navix.html): Blazing-fast, cross-platform code navigation and indexing tool (MIT) — offline symbol lookup, file jumping, and project-wide search. Source: https://github.com/zidniryi/navix
@@ -19,4 +20,4 @@ Contact: zidniryi123@gmail.com · GitHub: https://github.com/zidniryi · LinkedI
 
 ## Notes
 
-- Full page-level detail for unbagrnd (features, screenshots, install instructions, downloads) lives at https://zidniryi.space/unbagrnd/ and https://github.com/zidniryi/unbagrnd — treat the GitHub README as the source of truth for anything version-specific.
+- Full page-level detail for OpenNearby and unbagrnd (features, screenshots, install instructions, downloads) lives at their respective https://zidniryi.space/ pages and GitHub repos — treat each project's GitHub README as the source of truth for anything version-specific.
