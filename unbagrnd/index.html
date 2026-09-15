@@ -227,9 +227,15 @@
   .platform {
     background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
     padding: 26px; display: flex; flex-direction: column; gap: 16px;
+    /* Flex/grid items default to min-width:auto, which refuses to shrink
+       below the content's natural (nowrap) width - without this, a long
+       monospace meta line or button label blows the card past its grid
+       track and the whole page gains horizontal scroll on narrow widths. */
+    min-width: 0;
   }
   .platform--featured { border-color: rgba(53, 224, 138, 0.45); box-shadow: 0 0 0 1px rgba(53,224,138,0.12), 0 20px 60px -30px rgba(53,224,138,0.3); }
-  .platform__head { display: flex; align-items: center; gap: 12px; }
+  .platform__head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .platform__head > div:last-child { min-width: 0; }
   .platform__icon {
     width: 44px; height: 44px; border-radius: 12px; background: var(--green-soft);
     display: flex; align-items: center; justify-content: center; color: var(--green); flex-shrink: 0;
@@ -246,10 +252,11 @@
   .chip svg { width: 11px; height: 11px; color: var(--green); }
   .dl-btn {
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    width: 100%; text-align: left; border-radius: 10px; padding: 12px 14px;
+    width: 100%; min-width: 0; text-align: left; border-radius: 10px; padding: 12px 14px;
     text-decoration: none; font-size: 0.86rem; border: 1px solid var(--panel-border);
     background: transparent; color: var(--text); cursor: pointer; font-family: var(--font);
     transition: border-color 0.15s, background 0.15s;
+    box-sizing: border-box;
   }
   .dl-btn:hover { border-color: var(--green); }
   .dl-btn strong { font-weight: 700; display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -258,6 +265,17 @@
   .dl-btn--primary { background: var(--green); border-color: var(--green); color: #06120c; }
   .dl-btn--primary small { color: rgba(6,18,12,0.65); }
   .dl-btn--primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(53,224,138,0.3); }
+
+  /* Icon + title + filename/size all on one row gets cramped once the
+     platform cards go full-width on mobile - give the filename/size its
+     own line instead of squeezing it against the (already-shrunk) title. */
+  @media (max-width: 480px) {
+    .dl-btn { flex-wrap: wrap; row-gap: 4px; }
+    .dl-btn strong { flex: 1 1 100%; white-space: normal; }
+    .dl-btn small { flex: 1 1 100%; }
+    .platform__head { flex-wrap: wrap; }
+    .platform__meta { white-space: normal; }
+  }
 
   .platform__note {
     display: flex; gap: 10px; font-size: 0.8rem; color: var(--text-dim);
@@ -592,19 +610,20 @@
           </div>
           <div>
             <div class="platform__name">Android</div>
-            <div class="platform__meta">Debug APK · arm64</div>
+            <div class="platform__meta"><span data-gh-version>v0.3.0</span> · arm64</div>
           </div>
         </div>
         <div class="badges">
           <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Native photo picker</span>
           <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>On-device inference</span>
         </div>
-        <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd#android" target="_blank" rel="noopener">
-          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Build instructions on GitHub</strong>
+        <a class="dl-btn dl-btn--primary" data-gh-asset="android-apk" href="https://github.com/zidniryi/unbagrnd/releases/download/v0.3.0/unbagrnd_0.3.0_universal-release.apk">
+          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download APK</strong>
+          <small><span data-gh-size="android-apk">30.9 MB</span></small>
         </a>
         <div class="platform__note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-          <span>Not on the release page yet — no signing config set up. Build the debug APK yourself with the Android SDK/NDK; steps are in the README.</span>
+          <span>Not on the Play Store, so Android will warn about installing from an unknown source. Allow it once in the install prompt to continue.</span>
         </div>
       </div>
     </div>
@@ -741,7 +760,8 @@
       'mac-dmg': function (name) { return /\.dmg$/i.test(name); },
       'linux-appimage': function (name) { return /\.appimage$/i.test(name); },
       'linux-deb': function (name) { return /\.deb$/i.test(name); },
-      'linux-rpm': function (name) { return /\.rpm$/i.test(name); }
+      'linux-rpm': function (name) { return /\.rpm$/i.test(name); },
+      'android-apk': function (name) { return /\.apk$/i.test(name); }
     };
 
     function formatSize(bytes) {
