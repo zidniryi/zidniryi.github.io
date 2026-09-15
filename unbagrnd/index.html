@@ -7,7 +7,7 @@
 <meta name="description" content="unbagrnd removes the background from images entirely on your device using on-device AI. No cloud API, no account, no telemetry. Free, open source, cross-platform." />
 
 <meta property="og:title" content="unbagrnd — remove image backgrounds, on-device" />
-<meta property="og:description" content="AI-powered background removal that runs 100% on your device. Free and open source, for macOS, Windows, and Linux." />
+<meta property="og:description" content="AI-powered background removal that runs 100% on your device. Free and open source, for macOS, Windows, Linux, and Android." />
 <meta property="og:image" content="https://zidniryi.space/unbagrnd/assets/screenshot-landing.png" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zidniryi.space/unbagrnd" />
@@ -27,7 +27,7 @@
   "url": "https://zidniryi.space/unbagrnd/",
   "description": "unbagrnd removes the background from images entirely on-device using AI. No cloud API, no account, no telemetry. Free, open source (MIT), and cross-platform.",
   "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "macOS, Windows, Linux",
+  "operatingSystem": "macOS, Windows, Linux, Android",
   "softwareVersion": "0.1.0",
   "license": "https://github.com/zidniryi/unbagrnd/blob/main/LICENSE",
   "downloadUrl": "https://github.com/zidniryi/unbagrnd/releases",
@@ -222,8 +222,8 @@
   .step p { margin: 0; color: var(--text-dim); font-size: 0.88rem; }
 
   /* ---------- Download ---------- */
-  .platforms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-  @media (max-width: 900px) { .platforms { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
+  .platforms { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 700px) { .platforms { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
   .platform {
     background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
     padding: 26px; display: flex; flex-direction: column; gap: 16px;
@@ -410,7 +410,7 @@
       <div class="feature">
         <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
         <h3>Cross-platform</h3>
-        <p>Native installers for macOS (Apple Silicon), Windows, and Linux — one small app, no Electron.</p>
+        <p>Native installers for macOS (Apple Silicon), Windows, and Linux, plus an Android build — one small app, no Electron.</p>
       </div>
     </div>
   </div>
@@ -501,6 +501,30 @@
     <p class="section__lead">Pick your platform. Every build is free, and the source is right there on GitHub.</p>
 
     <div class="platforms">
+      <!-- macOS -->
+      <div class="platform platform--featured">
+        <div class="platform__head">
+          <div class="platform__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.36 1.43c.09 1.02-.29 2-.9 2.73-.63.75-1.66 1.33-2.67 1.25-.11-1 .35-2.03.95-2.71.68-.77 1.85-1.34 2.62-1.27ZM19.9 17.55c-.32.75-.7 1.44-1.15 2.08-.6.87-1.1 1.47-1.48 1.8-.6.55-1.24.83-1.93.85-.5.01-1.09-.14-1.78-.44-.7-.3-1.34-.44-1.93-.44-.62 0-1.28.14-1.99.44-.71.3-1.28.46-1.72.47-.66.03-1.32-.26-1.97-.87-.42-.36-.94-.98-1.57-1.87-.68-.95-1.24-2.05-1.68-3.31-.47-1.36-.71-2.68-.71-3.96 0-1.47.32-2.74.96-3.8a5.6 5.6 0 0 1 1.99-2.02 5.35 5.35 0 0 1 2.69-.76c.56 0 1.3.17 2.23.52.92.35 1.51.52 1.77.52.19 0 .85-.2 1.96-.6 1.05-.37 1.94-.53 2.66-.47 1.97.16 3.45.94 4.42 2.34a5.13 5.13 0 0 0-2.71 4.65c.02 1.51.56 2.77 1.62 3.77.48.46 1.02.81 1.61 1.06-.13.38-.27.75-.42 1.1Z"/></svg>
+          </div>
+          <div>
+            <div class="platform__name">macOS</div>
+            <div class="platform__meta"><span data-gh-version>v0.1.0</span> · Apple Silicon</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Apple Silicon</span>
+        </div>
+        <button class="dl-btn dl-btn--primary" data-modal="mac-modal">
+          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download for macOS</strong>
+          <small>.dmg · <span data-gh-size="mac-dmg">11.3 MB</span></small>
+        </button>
+        <div class="platform__note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span>Not notarized yet — macOS will say it's "damaged." Run <code>xattr -cr /Applications/unbagrnd.app</code> once — see the video for the full fix.</span>
+        </div>
+      </div>
+
       <!-- Windows -->
       <div class="platform">
         <div class="platform__head">
@@ -527,30 +551,6 @@
         <div class="platform__note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
           <span>Not code-signed yet, so SmartScreen may flag it. Click "More info" → "Run anyway" — see the video for a walkthrough.</span>
-        </div>
-      </div>
-
-      <!-- macOS -->
-      <div class="platform platform--featured">
-        <div class="platform__head">
-          <div class="platform__icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.36 1.43c.09 1.02-.29 2-.9 2.73-.63.75-1.66 1.33-2.67 1.25-.11-1 .35-2.03.95-2.71.68-.77 1.85-1.34 2.62-1.27ZM19.9 17.55c-.32.75-.7 1.44-1.15 2.08-.6.87-1.1 1.47-1.48 1.8-.6.55-1.24.83-1.93.85-.5.01-1.09-.14-1.78-.44-.7-.3-1.34-.44-1.93-.44-.62 0-1.28.14-1.99.44-.71.3-1.28.46-1.72.47-.66.03-1.32-.26-1.97-.87-.42-.36-.94-.98-1.57-1.87-.68-.95-1.24-2.05-1.68-3.31-.47-1.36-.71-2.68-.71-3.96 0-1.47.32-2.74.96-3.8a5.6 5.6 0 0 1 1.99-2.02 5.35 5.35 0 0 1 2.69-.76c.56 0 1.3.17 2.23.52.92.35 1.51.52 1.77.52.19 0 .85-.2 1.96-.6 1.05-.37 1.94-.53 2.66-.47 1.97.16 3.45.94 4.42 2.34a5.13 5.13 0 0 0-2.71 4.65c.02 1.51.56 2.77 1.62 3.77.48.46 1.02.81 1.61 1.06-.13.38-.27.75-.42 1.1Z"/></svg>
-          </div>
-          <div>
-            <div class="platform__name">macOS</div>
-            <div class="platform__meta"><span data-gh-version>v0.1.0</span> · Apple Silicon</div>
-          </div>
-        </div>
-        <div class="badges">
-          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Apple Silicon</span>
-        </div>
-        <button class="dl-btn dl-btn--primary" data-modal="mac-modal">
-          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Download for macOS</strong>
-          <small>.dmg · <span data-gh-size="mac-dmg">11.3 MB</span></small>
-        </button>
-        <div class="platform__note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-          <span>Not notarized yet — macOS will say it's "damaged." Run <code>xattr -cr /Applications/unbagrnd.app</code> once — see the video for the full fix.</span>
         </div>
       </div>
 
@@ -583,6 +583,30 @@
           <small>Fedora/RHEL · <span data-gh-size="linux-rpm">11.5 MB</span></small>
         </a>
       </div>
+
+      <!-- Android -->
+      <div class="platform">
+        <div class="platform__head">
+          <div class="platform__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48 19.44 6.3a.58.58 0 0 0-1-.58L16.56 8.9a9.9 9.9 0 0 0-9.12 0L5.56 5.72a.58.58 0 1 0-1 .58L6.4 9.48C3.87 10.87 2.14 13.28 1.8 16.1h20.4c-.34-2.82-2.07-5.23-4.6-6.62ZM7 14.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+          </div>
+          <div>
+            <div class="platform__name">Android</div>
+            <div class="platform__meta">Debug APK · arm64</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>Native photo picker</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4Z"/></svg>On-device inference</span>
+        </div>
+        <a class="dl-btn dl-btn--primary" href="https://github.com/zidniryi/unbagrnd#android" target="_blank" rel="noopener">
+          <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Build instructions on GitHub</strong>
+        </a>
+        <div class="platform__note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span>Not on the release page yet — no signing config set up. Build the debug APK yourself with the Android SDK/NDK; steps are in the README.</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -597,7 +621,7 @@
       <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
         <div class="stat-row">
           <div class="stat"><b>MIT</b><span>license</span></div>
-          <div class="stat"><b>3</b><span>platforms</span></div>
+          <div class="stat"><b>4</b><span>platforms</span></div>
           <div class="stat"><b>0</b><span>telemetry</span></div>
         </div>
         <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener" class="btn btn-ghost">
@@ -623,7 +647,7 @@
         <a href="https://zidniryi.space" target="_blank" rel="noopener">Zidni Ryi</a>
       </div>
     </div>
-    <p class="footer__note">Built by Zidni Ridwan Nulmuarif. Not affiliated with Apple, Microsoft, or any Linux distribution.</p>
+    <p class="footer__note">Built by Zidni Ridwan Nulmuarif. Not affiliated with Apple, Microsoft, Google, or any Linux distribution.</p>
   </div>
 </footer>
 
