@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>unbagrnd API Docs — Self-Hosted Background Removal (Docker)</title>
+<meta name="description" content="Docs for the unbagrnd REST API: self-host on-device background removal with Docker. Quick start, env vars, auth, and every endpoint — single image and batch." />
+<meta name="keywords" content="unbagrnd API, self-hosted background removal, remove background API, Docker background removal, on-device AI API, batch background removal, image background removal REST API" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="author" content="Zidni Ridwan Nulmuarif" />
+
+<meta property="og:site_name" content="unbagrnd" />
+<meta property="og:title" content="unbagrnd API docs — self-hosted background removal" />
+<meta property="og:description" content="Run your own on-device background-removal API with Docker. No cloud, no account, nothing sent anywhere but your own server." />
+<meta property="og:image" content="https://zidniryi.space/unbagrnd/assets/screenshot-landing.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zidniryi.space/unbagrnd/docs/" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="unbagrnd API docs — self-hosted background removal" />
+<meta name="twitter:description" content="Run your own on-device background-removal API with Docker. No cloud, no account, nothing sent anywhere but your own server." />
+<meta name="twitter:image" content="https://zidniryi.space/unbagrnd/assets/screenshot-landing.png" />
+
+<link rel="icon" href="../assets/logo.png" />
+<link rel="canonical" href="https://zidniryi.space/unbagrnd/docs/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Zidni Ryi", "item": "https://zidniryi.space/" },
+        { "@type": "ListItem", "position": 2, "name": "unbagrnd", "item": "https://zidniryi.space/unbagrnd/" },
+        { "@type": "ListItem", "position": 3, "name": "API Docs", "item": "https://zidniryi.space/unbagrnd/docs/" }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://zidniryi.space/unbagrnd/docs/#article",
+      "headline": "unbagrnd API Docs — Self-Hosted Background Removal",
+      "description": "Docs for the unbagrnd REST API: self-host on-device background removal with Docker in one command. Quick start, environment variables, authentication, and every endpoint - single image and batch removal.",
+      "url": "https://zidniryi.space/unbagrnd/docs/",
+      "inLanguage": "en",
+      "image": "https://zidniryi.space/unbagrnd/assets/screenshot-landing.png",
+      "isPartOf": { "@id": "https://zidniryi.space/unbagrnd/#software" },
+      "about": { "@id": "https://zidniryi.space/unbagrnd/#software" },
+      "author": {
+        "@type": "Person",
+        "name": "Zidni Ridwan Nulmuarif",
+        "url": "https://zidniryi.space"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Zidni Ridwan Nulmuarif",
+        "url": "https://zidniryi.space"
+      },
+      "mainEntityOfPage": "https://zidniryi.space/unbagrnd/docs/",
+      "datePublished": "2026-09-18",
+      "dateModified": "2026-09-18"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://zidniryi.space/unbagrnd/#software",
+      "name": "unbagrnd",
+      "url": "https://zidniryi.space/unbagrnd/",
+      "description": "unbagrnd removes the background from images entirely on-device using AI. No cloud API, no account, no telemetry. Free, open source (MIT), and cross-platform, with an optional self-hosted REST API.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "macOS, Windows, Linux, Android, Docker",
+      "license": "https://github.com/zidniryi/unbagrnd/blob/main/LICENSE",
+      "downloadUrl": "https://github.com/zidniryi/unbagrnd/releases",
+      "codeRepository": "https://github.com/zidniryi/unbagrnd",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I self-host the unbagrnd API?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clone the repo, copy .env.example to .env, set UNBAGRND_ADMIN_KEY, then run `docker compose up --build`. The server downloads its model on first startup and is ready at http://localhost:8080."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the unbagrnd API send my images anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every image is processed in memory by the model running inside your own container and discarded immediately after - never written to disk, logged, or sent to any third-party service."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I remove backgrounds from multiple images at once?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes - POST /v1/remove-background/batch accepts up to UNBAGRND_MAX_BATCH_SIZE images (default 10) in one request and returns a per-image result, so one bad file doesn't fail the rest of the batch."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #06120c;
+    --bg-soft: #0a1a12;
+    --panel: #0e2117;
+    --panel-border: #163324;
+    --text: #eafff3;
+    --text-dim: #9fc7ae;
+    --text-dimmer: #6f9581;
+    --green: #35e08a;
+    --green-strong: #17c96f;
+    --green-soft: rgba(53, 224, 138, 0.12);
+    --amber: #f2b84b;
+    --blue: #5eb3f2;
+    --red: #f2705e;
+    --radius: 16px;
+    --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(53, 224, 138, 0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(53, 224, 138, 0.07), transparent 60%);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  code { font-family: var(--mono); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Nav (shared with the main site) ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(14px);
+    background: rgba(6, 18, 12, 0.78);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .nav__row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; max-width: 1180px; margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.05rem; text-decoration: none; }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  .brand .u { color: var(--green); font-size: 1.3em; }
+  .nav__links { display: flex; align-items: center; gap: 26px; }
+  .nav__links a { text-decoration: none; color: var(--text-dim); font-size: 0.92rem; font-weight: 500; transition: color 0.15s; }
+  .nav__links a:hover { color: var(--text); }
+  .nav__links a.active { color: var(--green); }
+  .nav__gh { display: inline-flex; align-items: center; gap: 6px; }
+  .nav__gh svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .nav__cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #06120c !important; font-weight: 700;
+    padding: 9px 16px; border-radius: 999px; text-decoration: none; font-size: 0.88rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .nav__cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(53, 224, 138, 0.35); }
+  @media (max-width: 780px) { .nav__links a:not(.nav__cta) { display: none; } }
+
+  /* ---------- Docs header ---------- */
+  .docs-hero { padding: 56px 0 32px; border-bottom: 1px solid var(--panel-border); }
+  .docs-hero .eyebrow { color: var(--green); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .docs-hero h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; }
+  .docs-hero p { color: var(--text-dim); max-width: 640px; margin: 0 0 24px; font-size: 1.02rem; }
+  .docs-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    font-family: var(--font);
+  }
+  .btn-primary { background: var(--green); color: #06120c; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(53, 224, 138, 0.32); }
+  .btn-ghost { background: transparent; color: var(--text); border-color: var(--panel-border); }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ---------- Docs shell ---------- */
+  .docs-shell { display: grid; grid-template-columns: 230px 1fr; gap: 52px; padding: 44px 0 100px; align-items: start; }
+  @media (max-width: 940px) { .docs-shell { grid-template-columns: 1fr; gap: 28px; } }
+
+  .toc { position: sticky; top: 78px; max-height: calc(100vh - 100px); overflow-y: auto; padding-right: 8px; }
+  .toc-group { margin-bottom: 22px; }
+  .toc-group__label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dimmer); margin-bottom: 8px; }
+  .toc a {
+    display: block; padding: 6px 0; font-size: 0.87rem; color: var(--text-dim);
+    text-decoration: none; border-left: 2px solid transparent; padding-left: 12px; margin-left: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .toc a:hover { color: var(--text); }
+  .toc a.active { color: var(--green); border-left-color: var(--green); font-weight: 600; }
+  @media (max-width: 940px) {
+    .toc { position: static; max-height: none; display: flex; gap: 4px 18px; flex-wrap: wrap; padding: 14px 0; border-bottom: 1px solid var(--panel-border); margin-bottom: 8px; }
+    .toc-group { display: contents; }
+    .toc-group__label { display: none; }
+    .toc a { border-left: none; padding-left: 0; padding: 4px 0; }
+    .toc a.active { border-left: none; text-decoration: underline; }
+  }
+
+  .content { min-width: 0; }
+  .doc-section { padding-bottom: 52px; margin-bottom: 52px; border-bottom: 1px solid var(--panel-border); scroll-margin-top: 84px; }
+  .doc-section:last-child { border-bottom: none; margin-bottom: 0; }
+  .doc-section h2 { font-size: 1.5rem; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .doc-section h3 { font-size: 1.08rem; font-weight: 700; margin: 30px 0 10px; }
+  .doc-section > p.section-intro { color: var(--text-dim); margin: 0 0 20px; max-width: 700px; }
+  .doc-section p { color: var(--text-dim); font-size: 0.94rem; }
+  .doc-section ul, .doc-section ol { color: var(--text-dim); font-size: 0.94rem; padding-left: 22px; }
+  .doc-section li { margin-bottom: 6px; }
+  .doc-section a.inline-link { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(53,224,138,0.35); }
+  .doc-section a.inline-link:hover { border-color: var(--green); }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono);
+    font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; letter-spacing: 0.02em;
+  }
+  .pill--get { background: rgba(94,179,242,0.14); color: var(--blue); border: 1px solid rgba(94,179,242,0.35); }
+  .pill--post { background: var(--green-soft); color: var(--green); border: 1px solid rgba(53,224,138,0.35); }
+  .pill--delete { background: rgba(242,112,94,0.14); color: var(--red); border: 1px solid rgba(242,112,94,0.35); }
+
+  /* ---------- Code blocks ---------- */
+  .code-block { position: relative; margin: 14px 0 20px; }
+  .code-block pre {
+    background: #08150f; border: 1px solid var(--panel-border); border-radius: 12px;
+    padding: 16px 18px; overflow-x: auto; margin: 0; font-size: 0.83rem; line-height: 1.6;
+    color: #d8f5e6;
+  }
+  .code-block code { font-family: var(--mono); white-space: pre; }
+  .code-block .copy-btn {
+    position: absolute; top: 9px; right: 9px; background: var(--panel); border: 1px solid var(--panel-border);
+    color: var(--text-dim); font-family: var(--font); font-size: 0.72rem; font-weight: 600;
+    padding: 5px 10px; border-radius: 7px; cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .code-block .copy-btn:hover { border-color: var(--green); color: var(--green); }
+  .code-block .copy-btn.copied { color: var(--green); border-color: var(--green); }
+  .tok-c { color: var(--text-dimmer); } /* comments */
+  .tok-k { color: #9d8cff; } /* keys/keywords */
+  .tok-s { color: #ffcf86; } /* strings */
+
+  code.inline {
+    background: rgba(255,255,255,0.06); border: 1px solid var(--panel-border);
+    padding: 1px 7px; border-radius: 5px; font-size: 0.85em; color: #d8f5e6;
+  }
+
+  /* ---------- Tables ---------- */
+  .doc-table-wrap { overflow-x: auto; margin: 14px 0 20px; border: 1px solid var(--panel-border); border-radius: 12px; }
+  table.doc-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 480px; }
+  table.doc-table th { text-align: left; background: var(--panel); color: var(--text); font-weight: 700; padding: 10px 14px; border-bottom: 1px solid var(--panel-border); white-space: nowrap; }
+  table.doc-table td { padding: 10px 14px; border-bottom: 1px solid var(--panel-border); color: var(--text-dim); vertical-align: top; }
+  table.doc-table tr:last-child td { border-bottom: none; }
+  table.doc-table code.inline { white-space: nowrap; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    display: flex; gap: 12px; font-size: 0.87rem; color: var(--text-dim);
+    border-radius: 12px; padding: 14px 16px; margin: 16px 0 20px; border: 1px solid;
+  }
+  .callout svg { width: 17px; height: 17px; flex-shrink: 0; margin-top: 1px; }
+  .callout--info { background: rgba(94,179,242,0.08); border-color: rgba(94,179,242,0.28); }
+  .callout--info svg { color: var(--blue); }
+  .callout--warn { background: rgba(242,184,75,0.08); border-color: rgba(242,184,75,0.25); }
+  .callout--warn svg { color: var(--amber); }
+  .callout--ok { background: var(--green-soft); border-color: rgba(53,224,138,0.3); }
+  .callout--ok svg { color: var(--green); }
+  .callout strong { color: var(--text); }
+
+  /* ---------- Endpoint cards ---------- */
+  .endpoint-head { display: flex; align-items: center; gap: 10px; margin: 30px 0 4px; flex-wrap: wrap; }
+  .endpoint-head code.inline { font-size: 0.92rem; }
+  .endpoint-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0 8px; }
+  @media (max-width: 640px) { .endpoint-cards { grid-template-columns: 1fr; } }
+  .endpoint-card {
+    display: flex; align-items: center; gap: 10px; border: 1px solid var(--panel-border);
+    border-radius: 10px; padding: 10px 14px; text-decoration: none; transition: border-color 0.15s;
+  }
+  .endpoint-card:hover { border-color: rgba(53,224,138,0.4); }
+  .endpoint-card span.path { font-family: var(--mono); font-size: 0.82rem; color: var(--text); }
+  .endpoint-card span.desc { display: block; font-size: 0.74rem; color: var(--text-dimmer); }
+
+  /* ---------- Footer ---------- */
+  footer { border-top: 1px solid var(--panel-border); padding: 40px 0; }
+  .footer__row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; }
+  .footer__brand img { width: 26px; height: 26px; border-radius: 7px; }
+  footer .footer__links { display: flex; gap: 22px; font-size: 0.86rem; }
+  footer .footer__links a { text-decoration: none; color: var(--text-dim); }
+  footer .footer__links a:hover { color: var(--green); }
+  .footer__note { color: var(--text-dimmer); font-size: 0.8rem; margin-top: 20px; text-align: center; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__row">
+    <a class="brand" href="../#top">
+      <img src="../assets/logo.png" alt="" />
+      <span><span class="u">u</span>nbagrnd</span>
+    </a>
+    <div class="nav__links">
+      <a href="../#features">Features</a>
+      <a href="../#download">Download</a>
+      <a href="./" class="active">Docs</a>
+      <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener" class="nav__gh">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.53-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.43-2.7 5.4-5.27 5.68.42.36.78 1.07.78 2.17v3.22c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        GitHub
+      </a>
+      <a class="nav__cta" href="../#download">Download</a>
+    </div>
+  </div>
+</nav>
+
+<header class="docs-hero">
+  <div class="wrap">
+    <p class="eyebrow">Self-hosting</p>
+    <h1>unbagrnd API docs</h1>
+    <p>
+      Everything in the desktop app, over HTTP — run your own background-removal
+      API with Docker. Same on-device model, same privacy guarantee: no image
+      you send it is ever sent anywhere but your own server.
+    </p>
+    <div class="docs-hero__ctas">
+      <a class="btn btn-primary" href="#quickstart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Quick start
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/zidniryi/unbagrnd/blob/main/docs/unbagrnd-api.postman_collection.json" target="_blank" rel="noopener">Postman collection</a>
+      <a class="btn btn-ghost" href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener">Source on GitHub</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <nav class="toc" id="toc">
+      <div class="toc-group">
+        <div class="toc-group__label">Get started</div>
+        <a href="#overview">Overview</a>
+        <a href="#quickstart">Quick start</a>
+        <a href="#env-vars">Environment variables</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group__label">Authentication</div>
+        <a href="#auth">API keys &amp; admin key</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group__label">Endpoints</div>
+        <a href="#health">Health check</a>
+        <a href="#keys-endpoints">Key management</a>
+        <a href="#remove-background">Remove background</a>
+        <a href="#batch">Batch removal</a>
+      </div>
+      <div class="toc-group">
+        <div class="toc-group__label">Reference</div>
+        <a href="#errors">Errors</a>
+        <a href="#limits">Rate limits &amp; concurrency</a>
+        <a href="#deployment">Production deployment</a>
+      </div>
+    </nav>
+
+    <main class="content">
+
+      <section class="doc-section" id="overview">
+        <h2>Overview</h2>
+        <p class="section-intro">
+          <code class="inline">unbagrnd-api</code> is a self-hosted REST API wrapping the
+          exact same on-device background-removal core the desktop app uses.
+          There's no cloud, no account, and no unbagrnd-operated service in the
+          loop — every image is processed by the model running inside your own
+          container and never leaves it.
+        </p>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <tbody>
+              <tr><td>Auth</td><td><code class="inline">X-API-Key</code> header (per-request), <code class="inline">X-Admin-Key</code> for key management</td></tr>
+              <tr><td>Response format</td><td>Raw PNG for a single image, JSON for batch/keys/health</td></tr>
+              <tr><td>Interactive docs</td><td><code class="inline">GET /docs</code> — Swagger UI, generated from the same OpenAPI schema this page describes</td></tr>
+              <tr><td>Storage</td><td>SQLite — API key metadata only, never image data</td></tr>
+              <tr><td>License</td><td>MIT, same as the desktop app</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout--ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+          <span><strong>Nothing you upload is stored.</strong> Every request is processed in memory and discarded — not written to disk, not logged.</span>
+        </div>
+      </section>
+
+      <section class="doc-section" id="quickstart">
+        <h2>Quick start</h2>
+        <p class="section-intro">One command with Docker Compose — no Rust toolchain, no manual ONNX Runtime setup.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>git clone https://github.com/zidniryi/unbagrnd.git
+cd unbagrnd
+cp .env.example .env
+<span class="tok-c"># edit .env and set UNBAGRND_ADMIN_KEY, e.g:</span>
+<span class="tok-c">#   openssl rand -hex 32</span>
+docker compose up --build</code></pre>
+        </div>
+
+        <p>Once it's up:</p>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl http://localhost:8080/health
+<span class="tok-c"># {"status":"ok"}</span></code></pre>
+        </div>
+
+        <p>
+          On first startup the server downloads the configured model
+          (~44&nbsp;MB for the default, <code class="inline">silueta</code>) into the
+          <code class="inline">/models</code> volume — that only happens once.
+          Interactive docs are at <a class="inline-link" href="http://localhost:8080/docs" target="_blank" rel="noopener">http://localhost:8080/docs</a>,
+          and a ready-made <a class="inline-link" href="https://github.com/zidniryi/unbagrnd/blob/main/docs/unbagrnd-api.postman_collection.json" target="_blank" rel="noopener">Postman collection</a> is in the repo.
+        </p>
+
+        <h3>Without Docker</h3>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>cp .env.example .env   <span class="tok-c"># set UNBAGRND_ADMIN_KEY</span>
+cargo run -p unbagrnd-api</code></pre>
+        </div>
+        <div class="callout callout--warn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span><code class="inline">UNBAGRND_MODELS_DIR</code> and <code class="inline">DATABASE_URL</code> default to
+          <code class="inline">/models</code> / <code class="inline">/data</code>, which won't be writable outside a
+          container — override both to local paths (e.g. <code class="inline">./tmp/models</code>,
+          <code class="inline">sqlite://./tmp/unbagrnd.db</code>) for a bare-metal run.</span>
+        </div>
+      </section>
+
+      <section class="doc-section" id="env-vars">
+        <h2>Environment variables</h2>
+        <p class="section-intro">Set in <code class="inline">.env</code> — see <code class="inline">.env.example</code> in the repo for the full, commented list.</p>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Variable</th><th>Default</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code class="inline">HOST</code> / <code class="inline">PORT</code></td><td><code class="inline">0.0.0.0</code> / <code class="inline">8080</code></td><td>Where the server listens</td></tr>
+              <tr><td><code class="inline">DATABASE_URL</code></td><td><code class="inline">sqlite:///data/unbagrnd.db</code></td><td>API key metadata storage</td></tr>
+              <tr><td><code class="inline">UNBAGRND_ADMIN_KEY</code></td><td><em>(unset)</em></td><td>Required for <code class="inline">/v1/keys</code> — see <a class="inline-link" href="#auth">Authentication</a></td></tr>
+              <tr><td><code class="inline">UNBAGRND_MODEL_KEY</code></td><td><code class="inline">silueta</code></td><td>Which background-removal model to load at startup</td></tr>
+              <tr><td><code class="inline">UNBAGRND_MODELS_DIR</code></td><td><code class="inline">/models</code></td><td>Where the model is cached</td></tr>
+              <tr><td><code class="inline">UNBAGRND_MAX_FILE_SIZE_MB</code></td><td><code class="inline">20</code></td><td>Upload size limit, per image</td></tr>
+              <tr><td><code class="inline">UNBAGRND_MAX_IMAGE_WIDTH</code> / <code class="inline">HEIGHT</code></td><td><code class="inline">8192</code></td><td>Image dimension limit</td></tr>
+              <tr><td><code class="inline">UNBAGRND_MAX_CONCURRENT_INFERENCES</code></td><td><code class="inline">2</code></td><td>Bounds simultaneous inferences, regardless of how many requests are in flight</td></tr>
+              <tr><td><code class="inline">UNBAGRND_MAX_BATCH_SIZE</code></td><td><code class="inline">10</code></td><td>Max images per <code class="inline">/v1/remove-background/batch</code> request</td></tr>
+              <tr><td><code class="inline">UNBAGRND_RATE_LIMIT_PER_MINUTE</code></td><td><code class="inline">60</code></td><td>Per-API-key limit; <code class="inline">0</code> disables it; resets on restart</td></tr>
+              <tr><td><code class="inline">UNBAGRND_CORS_ORIGINS</code></td><td><code class="inline">*</code></td><td>Comma-separated allowlist, or <code class="inline">*</code></td></tr>
+              <tr><td><code class="inline">RUST_LOG</code></td><td><code class="inline">info</code></td><td>Standard <code class="inline">tracing-subscriber</code> filter syntax</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="auth">
+        <h2>Authentication</h2>
+        <p class="section-intro">Two separate credentials, two separate blast radiuses.</p>
+
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Header</th><th>Used for</th><th>Can it manage keys?</th></tr></thead>
+            <tbody>
+              <tr><td><code class="inline">X-API-Key</code></td><td><code class="inline">/v1/remove-background</code>, <code class="inline">/v1/remove-background/batch</code></td><td>No — 401 on <code class="inline">/v1/keys</code></td></tr>
+              <tr><td><code class="inline">X-Admin-Key</code></td><td><code class="inline">/v1/keys</code> (create / list / revoke)</td><td>Yes — the only credential that can</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          If <code class="inline">UNBAGRND_ADMIN_KEY</code> isn't set, every
+          <code class="inline">/v1/keys</code> route responds <code class="inline">503 ADMIN_KEY_NOT_CONFIGURED</code>
+          rather than falling back to some default credential — key management is
+          simply off until you set one.
+        </p>
+
+        <h3>Creating an API key</h3>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl -X POST http://localhost:8080/v1/keys \
+  -H <span class="tok-s">"X-Admin-Key: $UNBAGRND_ADMIN_KEY"</span> \
+  -H <span class="tok-s">"Content-Type: application/json"</span> \
+  -d <span class="tok-s">'{"name": "my-production-key"}'</span></code></pre>
+        </div>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>{
+  <span class="tok-k">"id"</span>: <span class="tok-s">"7ae43488-..."</span>,
+  <span class="tok-k">"name"</span>: <span class="tok-s">"my-production-key"</span>,
+  <span class="tok-k">"api_key"</span>: <span class="tok-s">"unb_live_2b66742368e47512..."</span>,
+  <span class="tok-k">"created_at"</span>: <span class="tok-s">"2026-01-01T00:00:00Z"</span>
+}</code></pre>
+        </div>
+        <div class="callout callout--warn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span><code class="inline">api_key</code> is only ever returned here, at creation time. Only its SHA-256
+          hash is stored — save it now, there's no way to retrieve it again later.</span>
+        </div>
+      </section>
+
+      <section class="doc-section" id="health">
+        <div class="endpoint-head"><span class="pill pill--get">GET</span><code class="inline">/health</code></div>
+        <h2 style="margin-top:4px;">Health check</h2>
+        <p class="section-intro">No auth required. Used by the Docker <code class="inline">HEALTHCHECK</code> and any uptime monitor.</p>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl http://localhost:8080/health
+<span class="tok-c"># {"status":"ok"}</span></code></pre>
+        </div>
+      </section>
+
+      <section class="doc-section" id="keys-endpoints">
+        <h2>Key management</h2>
+        <p class="section-intro">All three require <code class="inline">X-Admin-Key</code>.</p>
+
+        <div class="endpoint-head"><span class="pill pill--post">POST</span><code class="inline">/v1/keys</code></div>
+        <p>Create a new API key. See the request/response example in <a class="inline-link" href="#auth">Authentication</a> above.</p>
+
+        <div class="endpoint-head"><span class="pill pill--get">GET</span><code class="inline">/v1/keys</code></div>
+        <p>List key metadata — never the key itself or its hash.</p>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl http://localhost:8080/v1/keys -H <span class="tok-s">"X-Admin-Key: $UNBAGRND_ADMIN_KEY"</span></code></pre>
+        </div>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>{
+  <span class="tok-k">"keys"</span>: [
+    {
+      <span class="tok-k">"id"</span>: <span class="tok-s">"7ae43488-..."</span>,
+      <span class="tok-k">"name"</span>: <span class="tok-s">"my-production-key"</span>,
+      <span class="tok-k">"key_prefix"</span>: <span class="tok-s">"unb_live_2b667423"</span>,
+      <span class="tok-k">"created_at"</span>: <span class="tok-s">"2026-01-01T00:00:00Z"</span>,
+      <span class="tok-k">"last_used_at"</span>: <span class="tok-s">"2026-01-02T09:14:00Z"</span>,
+      <span class="tok-k">"revoked_at"</span>: <span class="tok-c">null</span>,
+      <span class="tok-k">"request_count"</span>: <span class="tok-c">42</span>
+    }
+  ]
+}</code></pre>
+        </div>
+
+        <div class="endpoint-head"><span class="pill pill--delete">DELETE</span><code class="inline">/v1/keys/{id}</code></div>
+        <p>Revoke a key immediately. Soft-deleted (<code class="inline">revoked_at</code> stays as an audit trail) — a revoked key stops authenticating on its very next request. Revoking an already-revoked or unknown id returns <code class="inline">404</code>.</p>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl -X DELETE http://localhost:8080/v1/keys/7ae43488-... \
+  -H <span class="tok-s">"X-Admin-Key: $UNBAGRND_ADMIN_KEY"</span></code></pre>
+        </div>
+      </section>
+
+      <section class="doc-section" id="remove-background">
+        <div class="endpoint-head"><span class="pill pill--post">POST</span><code class="inline">/v1/remove-background</code></div>
+        <h2 style="margin-top:4px;">Remove background</h2>
+        <p class="section-intro">The actual product. One image in, one transparent PNG out.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl -X POST http://localhost:8080/v1/remove-background \
+  -H <span class="tok-s">"X-API-Key: unb_live_xxxxxxxxx"</span> \
+  -F <span class="tok-s">"image=@photo.jpg"</span> \
+  --output result.png</code></pre>
+        </div>
+
+        <p>
+          Multipart form field name is <code class="inline">image</code> (singular).
+          Accepts PNG, JPEG, WebP, BMP, TIFF and GIF — the bytes are sniffed
+          rather than trusting a filename or declared content type. Returns
+          <code class="inline">image/png</code> with a transparent alpha channel.
+        </p>
+
+        <h3>Responses</h3>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code class="inline">200</code></td><td>Transparent PNG body</td></tr>
+              <tr><td><code class="inline">400</code></td><td>Missing/unreadable <code class="inline">image</code> field</td></tr>
+              <tr><td><code class="inline">401</code></td><td>Missing/invalid <code class="inline">X-API-Key</code></td></tr>
+              <tr><td><code class="inline">413</code></td><td>Image exceeds <code class="inline">UNBAGRND_MAX_FILE_SIZE_MB</code></td></tr>
+              <tr><td><code class="inline">422</code></td><td>Background removal failed</td></tr>
+              <tr><td><code class="inline">429</code></td><td>Rate limit exceeded</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="batch">
+        <div class="endpoint-head"><span class="pill pill--post">POST</span><code class="inline">/v1/remove-background/batch</code></div>
+        <h2 style="margin-top:4px;">Batch removal</h2>
+        <p class="section-intro">Up to <code class="inline">UNBAGRND_MAX_BATCH_SIZE</code> images (default 10) in one request.</p>
+
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>curl -X POST http://localhost:8080/v1/remove-background/batch \
+  -H <span class="tok-s">"X-API-Key: unb_live_xxxxxxxxx"</span> \
+  -F <span class="tok-s">"images=@photo1.jpg"</span> \
+  -F <span class="tok-s">"images=@photo2.jpg"</span> \
+  -F <span class="tok-s">"images=@photo3.jpg"</span></code></pre>
+        </div>
+
+        <p>
+          Multipart field name is <code class="inline">images</code> (plural) — repeat it once
+          per file. Always returns <code class="inline">200</code> with one result per image,
+          <strong style="color:var(--text)">in upload order</strong>: a single corrupt or
+          unreadable file becomes a per-item error rather than failing the whole batch.
+        </p>
+
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>{
+  <span class="tok-k">"results"</span>: [
+    { <span class="tok-k">"filename"</span>: <span class="tok-s">"photo1.jpg"</span>, <span class="tok-k">"status"</span>: <span class="tok-s">"ok"</span>, <span class="tok-k">"image_base64"</span>: <span class="tok-s">"iVBORw0KG..."</span> },
+    { <span class="tok-k">"filename"</span>: <span class="tok-s">"photo2.jpg"</span>, <span class="tok-k">"status"</span>: <span class="tok-s">"ok"</span>, <span class="tok-k">"image_base64"</span>: <span class="tok-s">"iVBORw0KG..."</span> },
+    { <span class="tok-k">"filename"</span>: <span class="tok-s">"photo3.jpg"</span>, <span class="tok-k">"status"</span>: <span class="tok-s">"error"</span>,
+      <span class="tok-k">"error"</span>: { <span class="tok-k">"code"</span>: <span class="tok-s">"UNSUPPORTED_IMAGE"</span>, <span class="tok-k">"message"</span>: <span class="tok-s">"unsupported or unrecognized image format"</span> } }
+  ]
+}</code></pre>
+        </div>
+
+        <p>
+          <code class="inline">image_base64</code> is a standard base64-encoded transparent PNG
+          — decode it to get the same file the single-image endpoint returns directly.
+          Every item still goes through the same <code class="inline">UNBAGRND_MAX_CONCURRENT_INFERENCES</code>
+          semaphore a single request does, so a large batch queues internally
+          rather than spiking resource usage.
+        </p>
+
+        <h3>Responses</h3>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code class="inline">200</code></td><td>Per-image results — see above (individual items can still report an error)</td></tr>
+              <tr><td><code class="inline">400</code></td><td>No <code class="inline">images</code> field, or more files than <code class="inline">UNBAGRND_MAX_BATCH_SIZE</code></td></tr>
+              <tr><td><code class="inline">401</code></td><td>Missing/invalid <code class="inline">X-API-Key</code></td></tr>
+              <tr><td><code class="inline">413</code></td><td>One of the images exceeds <code class="inline">UNBAGRND_MAX_FILE_SIZE_MB</code></td></tr>
+              <tr><td><code class="inline">429</code></td><td>Rate limit exceeded</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>All endpoints at a glance</h3>
+        <div class="endpoint-cards">
+          <a class="endpoint-card" href="#health"><span class="pill pill--get">GET</span><span><span class="path">/health</span><span class="desc">Liveness check</span></span></a>
+          <a class="endpoint-card" href="#keys-endpoints"><span class="pill pill--post">POST</span><span><span class="path">/v1/keys</span><span class="desc">Create an API key</span></span></a>
+          <a class="endpoint-card" href="#keys-endpoints"><span class="pill pill--get">GET</span><span><span class="path">/v1/keys</span><span class="desc">List API key metadata</span></span></a>
+          <a class="endpoint-card" href="#keys-endpoints"><span class="pill pill--delete">DEL</span><span><span class="path">/v1/keys/{id}</span><span class="desc">Revoke an API key</span></span></a>
+          <a class="endpoint-card" href="#remove-background"><span class="pill pill--post">POST</span><span><span class="path">/v1/remove-background</span><span class="desc">Remove one image's background</span></span></a>
+          <a class="endpoint-card" href="#batch"><span class="pill pill--post">POST</span><span><span class="path">/v1/remove-background/batch</span><span class="desc">Remove up to N images at once</span></span></a>
+        </div>
+      </section>
+
+      <section class="doc-section" id="errors">
+        <h2>Errors</h2>
+        <p class="section-intro">Always the same JSON shape, whatever the endpoint:</p>
+        <div class="code-block">
+          <button class="copy-btn" type="button">Copy</button>
+          <pre><code>{
+  <span class="tok-k">"error"</span>: {
+    <span class="tok-k">"code"</span>: <span class="tok-s">"INVALID_API_KEY"</span>,
+    <span class="tok-k">"message"</span>: <span class="tok-s">"invalid or revoked API key"</span>
+  }
+}</code></pre>
+        </div>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Code</th><th>Status</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code class="inline">MISSING_API_KEY</code></td><td>401</td><td>No <code class="inline">X-API-Key</code> header sent</td></tr>
+              <tr><td><code class="inline">INVALID_API_KEY</code></td><td>401</td><td>Unknown or revoked key</td></tr>
+              <tr><td><code class="inline">ADMIN_KEY_REQUIRED</code></td><td>401</td><td>No/wrong <code class="inline">X-Admin-Key</code> on a <code class="inline">/v1/keys</code> route</td></tr>
+              <tr><td><code class="inline">ADMIN_KEY_NOT_CONFIGURED</code></td><td>503</td><td><code class="inline">UNBAGRND_ADMIN_KEY</code> isn't set on the server</td></tr>
+              <tr><td><code class="inline">KEY_NOT_FOUND</code></td><td>404</td><td>No such key id to revoke</td></tr>
+              <tr><td><code class="inline">INVALID_IMAGE</code></td><td>400</td><td>Missing field, empty body, or bad dimensions</td></tr>
+              <tr><td><code class="inline">UNSUPPORTED_IMAGE</code></td><td>400</td><td>Bytes don't decode as a supported image format</td></tr>
+              <tr><td><code class="inline">IMAGE_TOO_LARGE</code></td><td>413</td><td>Exceeds <code class="inline">UNBAGRND_MAX_FILE_SIZE_MB</code></td></tr>
+              <tr><td><code class="inline">NO_IMAGES</code></td><td>400</td><td>Batch request with no <code class="inline">images</code> field</td></tr>
+              <tr><td><code class="inline">BATCH_TOO_LARGE</code></td><td>400</td><td>More files than <code class="inline">UNBAGRND_MAX_BATCH_SIZE</code></td></tr>
+              <tr><td><code class="inline">INFERENCE_ERROR</code></td><td>422</td><td>The model failed to process a valid image</td></tr>
+              <tr><td><code class="inline">RATE_LIMITED</code></td><td>429</td><td>Too many requests for this key this minute</td></tr>
+              <tr><td><code class="inline">INTERNAL_ERROR</code></td><td>500</td><td>Unexpected server error (logged server-side, detail withheld from the response)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="limits">
+        <h2>Rate limits &amp; concurrency</h2>
+        <p class="section-intro">Two independent knobs, both configurable per deployment.</p>
+        <ul>
+          <li><strong style="color:var(--text)">Rate limiting</strong> — an in-memory, per-API-key fixed 60-second window, capped by <code class="inline">UNBAGRND_RATE_LIMIT_PER_MINUTE</code> (default 60). Resets on restart; <code class="inline">0</code> disables it entirely.</li>
+          <li><strong style="color:var(--text)">Inference concurrency</strong> — <code class="inline">UNBAGRND_MAX_CONCURRENT_INFERENCES</code> (default 2) bounds how many images are actually being processed by the model at once, across every request in flight (single or batch). Everything past that queues rather than piling onto the CPU/GPU.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="deployment">
+        <h2>Production deployment</h2>
+        <p class="section-intro">A few things worth doing before exposing this to the public internet.</p>
+        <ul>
+          <li>Put a reverse proxy (Caddy, nginx, Traefik, ...) in front for TLS — <code class="inline">unbagrnd-api</code> itself only speaks plain HTTP.</li>
+          <li>Restrict <code class="inline">UNBAGRND_CORS_ORIGINS</code> to your actual frontend origin(s) instead of <code class="inline">*</code>.</li>
+          <li>Treat <code class="inline">UNBAGRND_ADMIN_KEY</code> like any other production secret — a real secrets manager, not a checked-in <code class="inline">.env</code>.</li>
+          <li>Persist the <code class="inline">/data</code> and <code class="inline">/models</code> volumes (the bundled <code class="inline">docker-compose.yml</code> already does this) so a restart doesn't re-download the model or lose API key metadata.</li>
+        </ul>
+        <div class="callout callout--info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>Full source, the Dockerfile, and the Postman collection all live in the
+          <a class="inline-link" href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener">GitHub repo</a> —
+          this page mirrors the README's <code class="inline">## API</code> section, kept in sync with it.</span>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer__row">
+      <a class="footer__brand" href="../#top">
+        <img src="../assets/logo.png" alt="" />
+        unbagrnd
+      </a>
+      <div class="footer__links">
+        <a href="../#top">Home</a>
+        <a href="https://github.com/zidniryi/unbagrnd" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/zidniryi/unbagrnd/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/zidniryi/unbagrnd/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+        <a href="https://zidniryi.space" target="_blank" rel="noopener">Zidni Ryi</a>
+      </div>
+    </div>
+    <p class="footer__note">Built by Zidni Ridwan Nulmuarif. Not affiliated with Apple, Microsoft, Google, or any Linux distribution.</p>
+  </div>
+</footer>
+
+<script>
+  // Copy-to-clipboard for every code block.
+  document.querySelectorAll('.code-block .copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var code = btn.parentElement.querySelector('code');
+      var text = code.innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+  });
+
+  // Highlight the active section in the sidebar as you scroll.
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.doc-section[id]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  function setActive() {
+    var scrollPos = window.scrollY + 120;
+    var current = sections[0];
+    sections.forEach(function (section) {
+      if (section.offsetTop <= scrollPos) current = section;
+    });
+    links.forEach(function (link) {
+      link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id);
+    });
+  }
+  document.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
+</body>
+</html>
