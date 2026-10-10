@@ -29,7 +29,7 @@
   "description": "unbagrnd removes the background from images entirely on-device using AI. No cloud API, no account, no telemetry. Free, open source (MIT), and cross-platform, with an optional self-hosted REST API.",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "macOS, Windows, Linux, Android, Docker",
-  "softwareVersion": "0.4.0",
+  "softwareVersion": "0.5.0",
   "license": "https://github.com/zidniryi/unbagrnd/blob/main/LICENSE",
   "downloadUrl": "https://github.com/zidniryi/unbagrnd/releases",
   "codeRepository": "https://github.com/zidniryi/unbagrnd",
@@ -38,6 +38,9 @@
     "https://zidniryi.space/unbagrnd/assets/screenshot-landing.png",
     "https://zidniryi.space/unbagrnd/assets/screenshot-single.png",
     "https://zidniryi.space/unbagrnd/assets/screenshot-batch.png",
+    "https://zidniryi.space/unbagrnd/assets/screenshot-batch-results.png",
+    "https://zidniryi.space/unbagrnd/assets/screenshot-edge.png",
+    "https://zidniryi.space/unbagrnd/assets/screenshot-mask.png",
     "https://zidniryi.space/unbagrnd/assets/screenshot-settings.png"
   ],
   "offers": {
@@ -355,6 +358,7 @@
       <a href="#features">Features</a>
       <a href="#screenshots">Screenshots</a>
       <a href="#editing">Editing</a>
+      <a href="#batch">Batch</a>
       <a href="#videos">Videos</a>
       <a href="#download">Download</a>
       <a href="docs/">Docs</a>
@@ -425,7 +429,7 @@
       <div class="feature">
         <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
         <h3>Single &amp; batch</h3>
-        <p>Process one image, or drop an entire folder, from the same window — with live before/after previews as each file finishes.</p>
+        <p>Process one image, or drop an entire folder, from the same window — with live previews as each file finishes. Batches can share one background and shadow, name files from a template, be cancelled or retried, and exported as a ZIP.</p>
       </div>
       <div class="feature">
         <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
@@ -454,14 +458,36 @@
   <div class="wrap">
     <p class="section__eyebrow">Beyond the cutout</p>
     <h2 class="section__title">Refine the edges, then style the background</h2>
-    <p class="section__lead">Two on-device editors for the spots the model gets almost right — no AI, no network, just the result you already have.</p>
+    <p class="section__lead">On-device editors for the spots the model gets almost right — brush, edge controls and background styling, with no AI and no network, just the result you already have.</p>
     <div class="shots">
       <div class="shot"><img src="assets/screenshot-refine.png" alt="unbagrnd refine editor - brush erase and restore with undo/redo" /></div>
+      <div class="shot"><img src="assets/screenshot-edge.png" alt="unbagrnd edge refinement - shift, smooth and feather sliders with live preview" /></div>
       <div class="shot"><img src="assets/screenshot-background.png" alt="unbagrnd background editor - solid color fill and drop shadow" /></div>
+      <div class="shot"><img src="assets/screenshot-mask.png" alt="unbagrnd alpha mask export - black and white matte saved next to the cutout" /></div>
     </div>
     <div class="how__grid" style="margin-top: 32px; grid-template-columns: repeat(2, 1fr); max-width: 620px;">
       <div class="step"><h4>Refine</h4><p>Brush over parts of the subject to erase or restore, with full undo/redo history.</p></div>
+      <div class="step"><h4>Edge</h4><p>Shift the outline in or out, smooth jagged edges, or feather them — a live preview makes hair and fur easy to dial in.</p></div>
       <div class="step"><h4>Background &amp; shadow</h4><p>Fill in a solid color - basic, pastel, neutral, or lifted straight from the photo - and add a soft drop shadow computed on-device, with angle and opacity presets.</p></div>
+      <div class="step"><h4>Export the mask</h4><p>Save the cutout's transparency as a black-and-white alpha matte, ready to use as a layer mask in your design tool.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="batch">
+  <div class="wrap">
+    <p class="section__eyebrow">Batch</p>
+    <h2 class="section__title">One look, every image</h2>
+    <p class="section__lead">Set a background, a shadow and a naming scheme once, then drop in a whole folder. It all runs on your device, one image at a time.</p>
+    <div class="shots">
+      <div class="shot"><img src="assets/screenshot-batch-options.png" alt="unbagrnd batch options - background color, drop shadow and file name template" /></div>
+      <div class="shot"><img src="assets/screenshot-batch-results.png" alt="unbagrnd batch results with ZIP export" /></div>
+    </div>
+    <div class="how__grid" style="margin-top: 32px; grid-template-columns: repeat(2, 1fr); max-width: 620px;">
+      <div class="step"><h4>Same look for all</h4><p>Apply one background color and drop shadow to every image in the batch.</p></div>
+      <div class="step"><h4>Names your way</h4><p>Name outputs with a template such as <code>{index}_{name}-studio</code>; collisions are renamed instead of overwritten.</p></div>
+      <div class="step"><h4>Cancel &amp; retry</h4><p>Stop a run at any time, then retry only the files that failed or were not processed.</p></div>
+      <div class="step"><h4>Export ZIP</h4><p>Bundle the finished images into a single archive in one click (desktop).</p></div>
     </div>
   </div>
 </section>
